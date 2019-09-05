@@ -13,6 +13,7 @@ Hints:
 * Use task scheduler to run 'run.bat' on daily basis
 * Setup BIOS power options to auto start when computer power surge happens
 * Check /log if something is wrong
+* Setup on backup computer(s) if you plan to go for vacation or long absence (just use different scheduler time, at least 20 min away from previous computer)
 
 Plans:
 remove TS BS
