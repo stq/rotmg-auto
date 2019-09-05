@@ -25,4 +25,4 @@ Made with passionate hate to DECA
 ***
 All regards to nrelay author, even if he is TS BS fan
 
-Also regards to daily login plugin
+Also regards to daily login plugin author
