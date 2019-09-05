@@ -9,7 +9,7 @@ Features:
 Hints:
 * Install with `npm i` and `npm i typescript -g`
 * Compile with `tsc`
-* Setup acc-config.json as described in nrelay docs
+* Setup acc-config.json as described in nrelay docs, just without buildVersion ( https://github.com/thomas-crane/nrelay/blob/master/acc-config-sample.json )
 * Use task scheduler to run 'run.bat' on daily basis
 * Setup BIOS power options to auto start when computer power surge happens
 * Check /log if something is wrong
