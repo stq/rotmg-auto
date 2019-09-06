@@ -1,22 +1,12 @@
-/**
- * @module services
- */
 import { createServer, Server, Socket } from 'net';
 import { Logger, LogLevel } from './logger';
 import { SocketWrapper, environment } from '../models';
 import { EventEmitter } from 'events';
 
 const DEFAULT_PORT = 5680;
-/**
- * A static singleton class which manages a local TCP server.
- */
 export class LocalServer {
 
-  /**
-   * Initializes the Local Server and begins listening on the specified port.
-   * @param port The port to listen for connections on.
-   */
-  static init(port?: number): void {
+    static init(port?: number): void {
     if (!port) {
       port = DEFAULT_PORT;
     }
@@ -41,13 +31,7 @@ export class LocalServer {
     this.server.listen(port);
   }
 
-  /**
-   * Writes data to all connected sockets. If `message` is not a buffer,
-   * it will be converted to a buffer using `utf8` encoding. If it is
-   * a buffer, it will not be affected.
-   * @param message The message to send.
-   */
-  static write(message: string | Buffer): void {
+    static write(message: string | Buffer): void {
     if (!this.sockets) {
       return;
     }
@@ -67,12 +51,7 @@ export class LocalServer {
     buffer = null;
   }
 
-  /**
-   * Attaches an event listener to the Local Server.
-   * @param event The name of the event to listen for. Available events are 'message'.
-   * @param listener The callback to invoke when the event is fired.
-   */
-  static on(event: 'message', listener: (message: string) => void): EventEmitter {
+    static on(event: 'message', listener: (message: string) => void): EventEmitter {
     if (!this.emitter) {
       this.emitter = new EventEmitter();
     }

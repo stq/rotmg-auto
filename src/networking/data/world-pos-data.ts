@@ -1,20 +1,11 @@
-/**
- * @module networking/data
- */
 import { PacketBuffer } from '../packet-buffer';
 import { DataPacket } from '../packet';
 import { Point } from '../../services';
 
 export class WorldPosData implements DataPacket {
 
-  /**
-   * The X coordinate of this position.
-   */
-  x: number;
-  /**
-   * The Y coordinate of this position.
-   */
-  y: number;
+    x: number;
+    y: number;
 
   constructor(x?: number, y?: number) {
     this.x = x || null;
@@ -31,40 +22,27 @@ export class WorldPosData implements DataPacket {
     packet.writeFloat(this.y);
   }
 
-  /**
-   * Returns the distance, squared, between this position and the `location`.
-   * @param location The other location.
-   */
-  squareDistanceTo(location: WorldPosData | Point): number {
+    squareDistanceTo(location: WorldPosData | Point): number {
     const a = location.x - this.x;
     const b = location.y - this.y;
     return a ** 2 + b ** 2;
   }
 
-  /**
-   * Returns a new `WorldPosData` object with the same X/Y coordinates.
-   */
-  clone(): WorldPosData {
+    clone(): WorldPosData {
     const clone = new WorldPosData();
     clone.x = this.x;
     clone.y = this.y;
     return clone;
   }
 
-  /**
-   * Returns a `Point` with the same X/Y coordinates.
-   */
-  toPrecisePoint(): Point {
+    toPrecisePoint(): Point {
     return {
       x: this.x,
       y: this.y
     };
   }
 
-  /**
-   * Returns a `Point` with the floored X/Y coordinates.
-   */
-  toPoint(): Point {
+    toPoint(): Point {
     return {
       x: Math.floor(this.x),
       y: Math.floor(this.y)

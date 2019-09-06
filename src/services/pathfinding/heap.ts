@@ -1,11 +1,5 @@
-/**
- * @module services/pathfinding
- */
 import { HeapItem } from './heap-item';
 
-/**
- * A basic implementation of a min-heap
- */
 export class Heap<T extends HeapItem<T>> {
 
   private items: T[];
@@ -18,28 +12,18 @@ export class Heap<T extends HeapItem<T>> {
     this.items = new Array<T>(this.maxHeapSize);
   }
 
-  /**
-   * The number of items in the heap.
-   */
-  get count(): number {
+    get count(): number {
     return this.heapSize;
   }
 
-  /**
-   * Adds an item to the heap.
-   * @param item The item to add.
-   */
-  add(item: T): void {
+    add(item: T): void {
     item.heapIndex = this.heapSize;
     this.items[this.heapSize] = item;
     this.sortUp(item);
     this.heapSize++;
   }
 
-  /**
-   * Removes the first item from the heap.
-   */
-  removeFirst(): T {
+    removeFirst(): T {
     const first = this.items[0];
     this.heapSize--;
     this.items[0] = this.items[this.heapSize];
@@ -48,19 +32,11 @@ export class Heap<T extends HeapItem<T>> {
     return first;
   }
 
-  /**
-   * Updates the item's positioning in the heap.
-   * @param item The item to update.
-   */
-  update(item: T): void {
+    update(item: T): void {
     this.sortUp(item);
   }
 
-  /**
-   * Checks whether the item exists in the heap.
-   * @param item The item to check.
-   */
-  contains(item: T): boolean {
+    contains(item: T): boolean {
     if (!this.items[item.heapIndex]) {
       return false;
     }

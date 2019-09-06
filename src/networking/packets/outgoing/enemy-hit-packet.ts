@@ -1,34 +1,16 @@
-/**
- * @module networking/packets/outgoing
- */
 import { PacketBuffer } from '../../packet-buffer';
 import { PacketType } from '../../packet-type';
 import { OutgoingPacket } from '../../packet';
 
-/**
- * Sent when an enemy has been hit by the player.
- */
 export class EnemyHitPacket implements OutgoingPacket {
 
   type = PacketType.ENEMYHIT;
 
   //#region packet-specific members
-  /**
-   * The current client time.
-   */
-  time: number;
-  /**
-   * The id of the bullet which hit the enemy.
-   */
-  bulletId: number;
-  /**
-   * The object id of the enemy which was hit.
-   */
-  targetId: number;
-  /**
-   * Whether or not the projectile will kill the enemy.
-   */
-  kill: boolean;
+    time: number;
+    bulletId: number;
+    targetId: number;
+    kill: boolean;
   //#endregion
 
   write(buffer: PacketBuffer): void {

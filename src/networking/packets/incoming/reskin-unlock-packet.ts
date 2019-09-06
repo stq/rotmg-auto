@@ -1,23 +1,14 @@
-/**
- * @module networking/packets/incoming
- */
 import { PacketBuffer } from '../../packet-buffer';
 import { PacketType } from '../../packet-type';
 import { IncomingPacket } from '../../packet';
 
-/**
- * Received to notify the player that a new skin has been unlocked.
- */
 export class ReskinUnlockPacket implements IncomingPacket {
 
   type = PacketType.RESKINUNLOCK;
   propagate = true;
 
   //#region packet-specific members
-  /**
-   * The id of the skin that was unlocked.
-   */
-  skinId: number;
+    skinId: number;
   //#endregion
 
   read(buffer: PacketBuffer): void {

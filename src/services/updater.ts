@@ -1,6 +1,3 @@
-/**
- * @module services
- */
 import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
@@ -21,45 +18,26 @@ const GSC_PATH = path.join(
 const DEFAULT_SWF_PATH = path.join(dir, 'src', 'services', 'updater-assets');
 const DEFAULT_VERSION_PATH = path.join(dir, 'versions.json');
 
-/**
- * Information about the local version of the assets.
- */
 export interface VersionInfo {
   clientVersion: string;
   assetVersion: string;
 }
 
-/**
- * A static singleton class used to update the local game assets and packet ids.
- */
 export class Updater {
 
-  /**
-   * Checks if the remote client version matches the local client version.
-   * @returns `true` if the `localVersion` does **not** match the remote version,
-   * @param localVersion The local version of the client.
-   */
-  static isClientOutdated(localVersion: string): Promise<boolean> {
+    static isClientOutdated(localVersion: string): Promise<boolean> {
     return this.getRemoteClientVersion().then((version) => {
       return localVersion !== version;
     });
   }
 
-  /**
-   * Checks if the remote asset version matches the local asset version.
-   * @returns `true` if the `localVersion` does **not** match the remote version,
-   * @param localVersion The local version of the asset.
-   */
-  static areAssetsOutdated(localVersion: string): Promise<boolean> {
+    static areAssetsOutdated(localVersion: string): Promise<boolean> {
     return this.getRemoteAssetVersion().then((version) => {
       return localVersion !== version;
     });
   }
 
-  /**
-   * Reads the local version number from the updater assets.
-   */
-  static getCurrentVersion(versionPath: string = DEFAULT_VERSION_PATH): VersionInfo {
+    static getCurrentVersion(versionPath: string = DEFAULT_VERSION_PATH): VersionInfo {
     try {
       return require(versionPath);
     } catch (error) {
@@ -76,32 +54,19 @@ export class Updater {
     }
   }
 
-  /**
-   * Stores the new asset `version` in the version info file at `versionPath`.
-   * @param version The new version.
-   * @param versionPath The path of the version info file.
-   */
-  static updateLocalAssetVersion(version: string, versionPath: string): void {
+    static updateLocalAssetVersion(version: string, versionPath: string): void {
     const current = this.getCurrentVersion(versionPath);
     current.assetVersion = version;
     fs.writeFileSync(versionPath, JSON.stringify(current));
   }
 
-  /**
-   * Stores the new client `version` in the version info file at `versionPath`.
-   * @param version The new version.
-   * @param versionPath The path of the version info file.
-   */
-  static updateLocalClientVersion(version: string, versionPath: string): void {
+    static updateLocalClientVersion(version: string, versionPath: string): void {
     const current = this.getCurrentVersion(versionPath);
     current.clientVersion = version;
     fs.writeFileSync(versionPath, JSON.stringify(current));
   }
 
-  /**
-   * Downloads the latest client.swf to the updater assets folder.
-   */
-  static getClient(version: string): Promise<any> {
+    static getClient(version: string): Promise<any> {
     const downloadPath = CLIENT_DL_ENDPOINT.replace('{{version}}', version);
     const clientPath = path.join(dir, 'src', 'services', 'updater-assets', 'client.swf');
     this.emptyFile(clientPath);
@@ -129,10 +94,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Downdloads the latest GroundTypes.json to the updater assets folder.
-   */
-  static getGroundTypes(): Promise<any> {
+    static getGroundTypes(): Promise<any> {
     if (!fs.existsSync(path.join(dir, 'resources'))) {
       fs.mkdirSync(path.join(dir, 'resources'));
     }
@@ -162,10 +124,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Downloads the latest Objects.json to the updater asssets folder.
-   */
-  static getObjects(): Promise<any> {
+    static getObjects(): Promise<any> {
     const objectsPath = path.join(dir, 'resources', 'Objects.json');
     this.emptyFile(objectsPath);
     const objectsStream = createWriteStream(objectsPath);
@@ -192,28 +151,19 @@ export class Updater {
     });
   }
 
-  /**
-   * Gets the remote client version.
-   */
-  static getRemoteClientVersion(): Promise<string> {
+    static getRemoteClientVersion(): Promise<string> {
     return HttpClient.get(CLIENT_VERSION_ENDPOINT).then((result) => {
       return result.replace(/[^0-9]/g, '');
     });
   }
 
-  /**
-   * Gets the remote asset version.
-   */
-  static getRemoteAssetVersion(): Promise<string> {
+    static getRemoteAssetVersion(): Promise<string> {
     return HttpClient.get(ASSET_ENDPOINT + '/current/version.txt').then((result) => {
       return result.replace(/[^0-9]/g, '');
     });
   }
 
-  /**
-   * Gets the remote version of both the client and the assets.
-   */
-  static getRemoteVersions(): Promise<VersionInfo> {
+    static getRemoteVersions(): Promise<VersionInfo> {
     return Promise.all([
       this.getRemoteClientVersion(),
       this.getRemoteAssetVersion()
@@ -225,10 +175,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Gets the latest assets and updates the local version number.
-   */
-  static getLatestAssets(): Promise<any> {
+    static getLatestAssets(): Promise<any> {
     return Promise.all([
       this.getGroundTypes(),
       this.getObjects()
@@ -239,10 +186,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Gets the latest client, updates the local packet ids, then updates the local version number.
-   */
-  static getLatestClient(): Promise<any> {
+    static getLatestClient(): Promise<any> {
     let clientVersion: string;
     return this.getRemoteClientVersion().then((version) => {
       clientVersion = version;
@@ -254,11 +198,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Downloads all of the latest assets, extracts and applies the
-   * new packet ids, and updates the local version number.
-   */
-  static getLatest(): Promise<any> {
+    static getLatest(): Promise<any> {
     return Promise.all([
       this.getLatestClient(),
       this.getLatestAssets()
@@ -269,11 +209,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Updates the packet ids using the client.swf inside the `parentDir`.
-   * @param parentDir The directory containing the client.swf
-   */
-  static updateFrom(parentDir: string): Promise<any> {
+    static updateFrom(parentDir: string): Promise<any> {
     const realPath = parentDir.split(/\/|\\/g).join(path.sep);
     let swfDir = realPath;
     let swfName = 'client.swf';
@@ -290,11 +226,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Ensures that the given file is empty.
-   * @param filePath The file to empty.
-   */
-  private static emptyFile(filePath: PathLike): void {
+    private static emptyFile(filePath: PathLike): void {
     try {
       fs.truncateSync(filePath, 0);
     } catch (error) {
@@ -306,10 +238,7 @@ export class Updater {
     }
   }
 
-  /**
-   * Unpacks the client in the updater assets.
-   */
-  private static unpackSwf(parentDir: string, swfName: string): Promise<any> {
+    private static unpackSwf(parentDir: string, swfName: string): Promise<any> {
     return new Promise((resolve: () => void, reject: (err: Error) => void) => {
       Logger.log('Updater', `Unpacking ${swfName}`, LogLevel.Info);
       const args = [
@@ -332,11 +261,7 @@ export class Updater {
     });
   }
 
-  /**
-   * Extracts the packet information from the given file.
-   * @param assetPath The path to the file containing the extracted packet ids.
-   */
-  private static extractPacketInfo(assetPath: string): PacketIdMap {
+    private static extractPacketInfo(assetPath: string): PacketIdMap {
     let raw = null;
     raw = fs.readFileSync(assetPath, { encoding: 'utf8' });
     const packets: PacketIdMap = {};
@@ -349,12 +274,7 @@ export class Updater {
     return packets;
   }
 
-  /**
-   * Converts the `newPackets` to an enum and writes the result
-   * to the `packet-type.ts` file.
-   * @param newPackets The packet name/id map to use.
-   */
-  private static updatePackets(newPackets: PacketIdMap): void {
+    private static updatePackets(newPackets: PacketIdMap): void {
     const filePath = path.join(dir, 'packets.json');
     fs.writeFileSync(filePath, JSON.stringify(newPackets), { encoding: 'utf8' });
     Mapper.mapIds(newPackets);

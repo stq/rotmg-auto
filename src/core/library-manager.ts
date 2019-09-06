@@ -1,6 +1,3 @@
-/**
- * @module core
- */
 import { Logger, LogLevel, Storage } from './../services';
 import { Client } from './client';
 import * as fs from 'fs';
@@ -9,19 +6,13 @@ import { IncomingPacket } from '../networking';
 
 const PLUGIN_REGEX = /^.+\.js$/;
 
-/**
- * A static singleton class used to load libraries and packet hooks.
- */
 export class LibraryManager {
 
   static readonly libStore: Map<string, ManagedLib<any>> = new Map();
   static readonly hookStore: Map<string, Array<HookInfo<any>>> = new Map();
   static readonly clientHookStore: Map<string, HookInfo<Client>> = new Map();
 
-  /**
-   * Loads and stores all libraries present in the `plugins` folder.
-   */
-  static loadPlugins(): void {
+    static loadPlugins(): void {
     const folderPath = Storage.makePath('dist', 'plugins');
     let files: string[] = [];
     try {
@@ -50,11 +41,7 @@ export class LibraryManager {
     }
   }
 
-  /**
-   * Stores the given `info` about the packet hook.
-   * @param info The hook information.
-   */
-  static loadHook<T>(info: HookInfo<T>): void {
+    static loadHook<T>(info: HookInfo<T>): void {
     if (info.target === 'Client') {
       this.clientHookStore.set(info.packet, info as any);
     } else {
@@ -65,11 +52,7 @@ export class LibraryManager {
     }
   }
 
-  /**
-   * Creates and stores a `ManagedLib` from the given `lib`.
-   * @param lib The library to load.
-   */
-  static loadLibrary<T>(lib: LoadedLib<T>): void {
+    static loadLibrary<T>(lib: LoadedLib<T>): void {
     if (this.libStore.has(lib.target.name)) {
       const existing = this.libStore.get(lib.target.name);
       if (existing.info.dependencies.some((v, i) => v !== lib.dependencies[i])) {
@@ -107,11 +90,7 @@ export class LibraryManager {
     }
   }
 
-  /**
-   * Gets an instance of the specified type from the `libStore`.
-   * @deprecated Use dependency injection instead.
-   */
-  static getInstanceOf<T extends object>(instance: new () => T): T {
+    static getInstanceOf<T extends object>(instance: new () => T): T {
     Logger.log('Deprecation', 'getInstanceOf is deprecated. Use dependency injection instead.', LogLevel.Warning);
     const lib = this.libStore.get(instance.name);
     if (lib && lib.instance) {
@@ -121,24 +100,14 @@ export class LibraryManager {
     }
   }
 
-  /**
-   * Invokes the `method` after all plugins have loaded.
-   * @param method The method to invoke.
-   * @deprecated `loadPlugins` may be called more than once, therefore
-   * it is impossible to tell when "all" plugins have loaded. This method
-   * is only guaranteed to work for the *first* call of `loadPlugins`.
-   */
-  static afterInit(method: () => void): void {
+    static afterInit(method: () => void): void {
     if (!this.afterInitFunctions) {
       this.afterInitFunctions = [];
     }
     this.afterInitFunctions.push(method);
   }
 
-  /**
-   * Invokes any packet hook methods which are registered for the given packet type.
-   */
-  static callHooks(packet: IncomingPacket, client: Client): void {
+    static callHooks(packet: IncomingPacket, client: Client): void {
     const name = packet.constructor.name;
     if (this.hookStore.has(name)) {
       const hooks = this.hookStore.get(name);

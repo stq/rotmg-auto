@@ -1,6 +1,3 @@
-/**
- * @module services/http
- */
 import * as url from 'url';
 import * as qs from 'querystring';
 import * as zlib from 'zlib';
@@ -11,9 +8,6 @@ import { SocksClient } from 'socks';
 import { Logger, LogLevel } from '../logger';
 import { IncomingMessage } from 'http';
 
-/**
- * The HTTP headers to include in each request.
- */
 export const REQUEST_HEADERS = {
   'Cache-Control': 'max-age=0',
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
@@ -22,16 +16,8 @@ export const REQUEST_HEADERS = {
   'Connection': 'keep-alive'
 };
 
-/**
- * A static helper class used to provide an interface for Promise based web requests.
- */
 export class HttpClient {
-  /**
-   * Makes a GET request to the specified path.
-   * @param path The path to make the GET request to.
-   * @param options The options to use while making the request.
-   */
-  static get(path: string, options: RequestOptions = { query: {}, proxy: null }): Promise<string> {
+    static get(path: string, options: RequestOptions = { query: {}, proxy: null }): Promise<string> {
     const endpoint = url.parse(path);
     if (!/https?:/.test(endpoint.protocol)) {
       return Promise.reject(new Error(`Unsupported protocol: "${endpoint.protocol}"`));
@@ -51,11 +37,7 @@ export class HttpClient {
     }
   }
 
-  /**
-   * Unzips a gzipped HTTP response.
-   * @param zipped The gzipped response to unzip.
-   */
-  static unzip(zipped: IncomingMessage): Promise<string> {
+    static unzip(zipped: IncomingMessage): Promise<string> {
     return new Promise((resolve, reject) => {
       const unzip = zlib.createGunzip();
       zipped.pipe(unzip);
@@ -77,12 +59,7 @@ export class HttpClient {
     });
   }
 
-  /**
-   * Makes a POST request to the specified path and passes the provided parameters.
-   * @param path The path to make the POST request to.
-   * @param params The POST parameters to include.
-   */
-  static post(path: string, params?: { [id: string]: any }): Promise<string> {
+    static post(path: string, params?: { [id: string]: any }): Promise<string> {
     const endpoint = url.parse(path);
     if (!/https?:/.test(endpoint.protocol)) {
       return Promise.reject(new Error(`Unsupported protocol: "${endpoint.protocol}"`));

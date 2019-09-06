@@ -1,26 +1,14 @@
-/**
- * @module networking/packets/outgoing
- */
 import { PacketBuffer } from '../../packet-buffer';
 import { PacketType } from '../../packet-type';
 import { OutgoingPacket } from '../../packet';
 
-/**
- * Sent to buy an item.
- */
 export class BuyPacket implements OutgoingPacket {
 
   type = PacketType.BUY;
 
   //#region packet-specific members
-  /**
-   * The object id of the item being purchased.
-   */
-  objectId: number;
-  /**
-   * The number of items being purchased.
-   */
-  quantity: number;
+    objectId: number;
+    quantity: number;
   //#endregion
 
   write(buffer: PacketBuffer): void {

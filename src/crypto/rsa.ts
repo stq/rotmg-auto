@@ -1,6 +1,3 @@
-/**
- * @module crypto
- */
 import * as NodeRSA from 'node-rsa';
 
 const PUBLIC_KEY =
@@ -11,15 +8,8 @@ const PUBLIC_KEY =
   'F3yWYqUbZd/HCBtawwIDAQAB\n' +
   '-----END PUBLIC KEY-----';
 
-/**
- * A static singleton class which provides RSA encryption methods.
- */
 export class RSA {
-  /**
-   * Encrypts the text with a hard-coded public key.
-   * @param msg The text to encrypt.
-   */
-  static encrypt(msg: string): string {
+    static encrypt(msg: string): string {
     if (!msg || msg.trim() === '') {
       return '';
     }

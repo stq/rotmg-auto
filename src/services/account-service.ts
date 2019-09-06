@@ -1,6 +1,3 @@
-/**
- * @module services
- */
 import { Proxy, CharacterInfo, SERVER_ENDPOINT, Server } from '../models';
 import { HttpClient } from './http';
 import { XMLtoJSON } from './xmltojson';
@@ -12,18 +9,9 @@ import { Storage } from './storage';
 const ACCOUNT_IN_USE_REGEX = /Account in use \((\d+) seconds? until timeout\)/;
 const ERROR_REGEX = /<Error\/?>(.+)<\/?Error>/;
 
-/**
- * A static singleton class which provides utility methods for retrieving
- * information about an account.
- */
 export class AccountService {
 
-  /**
-   * Ensures that the `proxy` has an IPv4 or IPv6 as the
-   * host instead of a hostname.
-   * @param proxy The proxy to resolve.
-   */
-  static resolveProxyHostname(proxy: Proxy): Promise<void> {
+    static resolveProxyHostname(proxy: Proxy): Promise<void> {
     if (!proxy) {
       return Promise.resolve();
     }
@@ -45,10 +33,7 @@ export class AccountService {
     }
   }
 
-  /**
-   * Gets the list of servers, or returns the cached version.
-   */
-  static getServerList(): Promise<{ [name: string]: Server }> {
+    static getServerList(): Promise<{ [name: string]: Server }> {
     if (this.internalServerList) {
       return Promise.resolve(this.internalServerList);
     }
@@ -73,13 +58,7 @@ export class AccountService {
     });
   }
 
-  /**
-   * Gets the character info for the account provided.
-   * @param guid The account email.
-   * @param password The account password.
-   * @param proxy An optional proxy to use for the request.
-   */
-  static getCharacterInfo(guid: string, password: string, proxy?: Proxy): Promise<CharacterInfo> {
+    static getCharacterInfo(guid: string, password: string, proxy?: Proxy): Promise<CharacterInfo> {
     return HttpClient.get(SERVER_ENDPOINT, {
       proxy: proxy,
       query: {

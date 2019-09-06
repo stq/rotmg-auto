@@ -1,6 +1,3 @@
-/**
- * @module networking
- */
 import { PacketType } from './packet-type';
 import { ArenaDeathPacket } from './packets/incoming/arena/arena-death';
 import { ImminentArenaWavePacket } from './packets/incoming/arena/imminent-arena-wave';
@@ -47,16 +44,8 @@ import { VerifyEmailPacket } from './packets/incoming/verify-email-packet';
 import { IncomingPacket } from './packet';
 import { RealmHeroLeftMessage } from './packets/incoming/realm-hero-left-msg';
 
-/**
- * A static utility class for creating packet objects from a `PacketType`.
- */
 export class Packets {
-  /**
-   * Creates the correct packet object for the given type.
-   * @param type The type of packet to create.
-   * @throws {Error} if the packet cannot be created.
-   */
-  static create(type: PacketType): IncomingPacket {
+    static create(type: PacketType): IncomingPacket {
     if (!PacketType[type]) {
       throw new Error(`Invalid packet type: ${type}`);
     }

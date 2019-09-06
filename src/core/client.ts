@@ -1,6 +1,3 @@
-/**
- * @module core
- */
 import { Socket } from 'net';
 import { Logger, LogLevel, Random, Storage } from '../services';
 import { PacketType, PacketIO, IncomingPacket } from './../networking';
@@ -71,18 +68,7 @@ declare type ClientEvent = 'connect' | 'disconnect' | 'ready';
 
 export class Client {
 
-  /**
-   * Attaches an event listener to the client.
-   * @example
-   * ```
-   * Client.on('disconnect', (client) => {
-   *   delete this.clients[client.alias];
-   * });
-   * ```
-   * @param event The name of the event to listen for.
-   * @param listener The callback to invoke when the event is fired.
-   */
-  static on(event: ClientEvent, listener: (client: Client) => void): EventEmitter {
+    static on(event: ClientEvent, listener: (client: Client) => void): EventEmitter {
     if (!this.emitter) {
       this.emitter = new EventEmitter();
     }
@@ -90,103 +76,28 @@ export class Client {
   }
   private static emitter: EventEmitter;
 
-  /**
-   * The player data of the client.
-   * @see `PlayerData` for more info.
-   */
-  playerData: PlayerData;
-  /**
-   * The objectId of the client.
-   */
-  objectId: number;
-  /**
-   * The current position of the client.
-   */
-  worldPos: WorldPosData;
-  /**
-   * The PacketIO instance associated with the client.
-   * @see `PacketIO` for more info.
-   */
-  packetio: PacketIO;
-  /**
-   * The tiles of the current map. These are stored in a
-   * 1d array, so to access the tile at x, y the index
-   * y * height + x should be used where height is the height
-   * of the map.
-   * @example
-   * ```
-   * getTile(client: Client, x: number, y: number): MapTile {
-   *   const tileX = Math.floor(x);
-   *   const tileY = Math.floor(y);
-   *   return client.mapTiles.mapTiles[tileY * client.mapInfo.height + tileX];
-   * }
-   * ```
-   */
-  mapTiles: MapTile[];
-  /**
-   * A queue of positions for the client to move towards. If
-   * the queue is not empty, the client will move towards the first
-   * item in it. The first item will be removed when the client has reached it.
-   * @example
-   * ```
-   * const pos: WorldPosData = client.worldPos.clone();
-   * pos.x += 1;
-   * pos.y += 1;
-   * client.nextPos.push(pos);
-   * ```
-   */
-  readonly nextPos: WorldPosData[];
-  /**
-   * Info about the current map.
-   * @see `MapInfo` for more information.
-   */
-  mapInfo: MapInfo;
-  /**
-   * Info about the account's characters.
-   * @see `CharacterInfo` for more information.
-   */
-  readonly charInfo: CharacterInfo;
-  /**
-   * The server the client is connected to.
-   * @see `Server` for more info.
-   */
-  get server(): Server {
+    playerData: PlayerData;
+    objectId: number;
+    worldPos: WorldPosData;
+    packetio: PacketIO;
+    mapTiles: MapTile[];
+    readonly nextPos: WorldPosData[];
+    mapInfo: MapInfo;
+    readonly charInfo: CharacterInfo;
+    get server(): Server {
     return this.internalServer;
   }
-  /**
-   * The alias of the client.
-   */
-  alias: string;
-  /**
-   * The email address of the client.
-   */
-  readonly guid: string;
-  /**
-   * The password of the client.
-   */
-  readonly password: string;
-  /**
-   * Whether or not the client should automatically shoot at enemies.
-   */
-  autoAim: boolean;
-  /**
-   * A number between 0 and 1 which can be used to modify the speed
-   * of the client. A value of 1 will be 100% move speed for the client,
-   * a value of 0.5 will be 50% of the max speed. etc.
-   *
-   * @example
-   * client.moveMultiplier = 0.8;
-   */
-  set moveMultiplier(value: number) {
+    alias: string;
+    readonly guid: string;
+    readonly password: string;
+    autoAim: boolean;
+    set moveMultiplier(value: number) {
     this.internalMoveMultiplier = Math.max(0, Math.min(value, 1));
   }
   get moveMultiplier(): number {
     return this.internalMoveMultiplier;
   }
-  /**
-   * Indicates whether or not the client's TCP socket is connected.
-   */
-  get connected(): boolean {
+    get connected(): boolean {
     return this.socketConnected;
   }
   private socketConnected: boolean;
@@ -228,13 +139,7 @@ export class Client {
     [objectId: number]: Enemy;
   };
 
-  /**
-   * Creates a new instance of the client and begins the connection process to the specified server.
-   * @param server The server to connect to.
-   * @param buildVersion The current build version of RotMG.
-   * @param accInfo The account info to connect with.
-   */
-  constructor(server: Server, buildVersion: string, accInfo: Account) {
+    constructor(server: Server, buildVersion: string, accInfo: Account) {
     if (!Client.emitter) {
       Client.emitter = new EventEmitter();
     }
@@ -271,11 +176,7 @@ export class Client {
     this.connect();
   }
 
-  /**
-   * Shoots a projectile at the specified angle.
-   * @param angle The angle in radians to shoot towards.
-   */
-  shoot(angle: number): boolean {
+    shoot(angle: number): boolean {
     if (ConditionEffects.has(this.playerData.condition, ConditionEffect.STUNNED)) {
       return;
     }
@@ -323,11 +224,7 @@ export class Client {
     return true;
   }
 
-  /**
-   * Removes all event listeners and releases any resources held by the client.
-   * This should only be used when the client is no longer needed.
-   */
-  destroy(): void {
+    destroy(): void {
     // packet io.
     if (this.packetio) {
       this.packetio.destroy();
@@ -365,12 +262,7 @@ export class Client {
     }
   }
 
-  /**
-   * Switches the client connect to a proxied connection. Setting this to
-   * `null` will remove the current proxy if there is one.
-   * @param proxy The proxy to use.
-   */
-  setProxy(proxy: Proxy): void {
+    setProxy(proxy: Proxy): void {
     if (proxy) {
       Logger.log(this.alias, 'Connecting to new proxy.');
     } else {
@@ -380,11 +272,7 @@ export class Client {
     this.connect();
   }
 
-  /**
-   * Connects the bot to the `server`.
-   * @param server The server to connect to.
-   */
-  connectToServer(server: Server): void {
+    connectToServer(server: Server): void {
     Logger.log(this.alias, `Switching to ${server.name}.`, LogLevel.Info);
     this.internalServer = server;
     this.nexusServer = server;
@@ -395,34 +283,19 @@ export class Client {
     return (this.nexusServer && this.nexusServer.name || '-') + '/' + (this.internalServer && this.internalServer.name || '-');
   }
 
-  /**
-   * Connects to `gameId` on the current server
-   *  @param gameId The gameId to use upon connecting.
-   */
-  changeGameId(gameId: GameId): void {
+    changeGameId(gameId: GameId): void {
     Logger.log(this.alias, `Changing gameId to ${gameId}`, LogLevel.Info);
     this.gameId = gameId;
     this.connect();
   }
 
-  /**
-   * Blocks the next packet of the specified type.
-   * @param packetType The packet type to block.
-   * @deprecated Prefer using a library to hook the desired packet
-   * and set its `send` property to `false`.
-   */
-  blockNext(packetType: PacketType): void {
+    blockNext(packetType: PacketType): void {
     if (this.blockedPackets.indexOf(packetType) < 0) {
       this.blockedPackets.push(packetType);
     }
   }
 
-  /**
-   * Broadcasts a packet to all connected clients except
-   * the client which broadcasted the packet.
-   * @param packet The packet to broadcast.
-   */
-  broadcastPacket(packet: IncomingPacket): void {
+    broadcastPacket(packet: IncomingPacket): void {
     const clients = CLI.getClients();
     for (const client of clients) {
       if (client.guid !== this.guid) {
@@ -431,19 +304,11 @@ export class Client {
     }
   }
 
-  /**
-   * Returns how long the client has been connected for, in milliseconds.
-   */
-  getTime(): number {
+    getTime(): number {
     return (Date.now() - this.connectTime);
   }
 
-  /**
-   * Finds a path from the client's current position to the `to` point
-   * and moves the client along the path.
-   * @param to The point to navigate towards.
-   */
-  findPath(to: Point): void {
+    findPath(to: Point): void {
     if (!this.pathfinderEnabled) {
       Logger.log(this.alias, 'Pathfinding is not enabled. Please enable it in the acc-config.', LogLevel.Warning);
       return;

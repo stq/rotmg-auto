@@ -1,6 +1,3 @@
-/**
- * @module networking
- */
 import { EventEmitter } from 'events';
 import { Socket } from 'net';
 import { PacketBuffer } from './packet-buffer';
@@ -11,9 +8,6 @@ import { Mapper } from './mapper';
 import { PacketType } from './packet-type';
 import { Logger, LogLevel } from '../core';
 
-/**
- * A utility class which implements the RotMG messaging protocol on top of a `Socket`.
- */
 export class PacketIO {
 
   private sendRC4: RC4;
@@ -24,11 +18,7 @@ export class PacketIO {
   private packetBuffer: PacketBuffer;
   private outgoingBuffer: PacketBuffer;
 
-  /**
-   * Creates a new `PacketIO` on top of the given `socket`.
-   * @param socket The socket to implement the protocol on top of.
-   */
-  constructor(socket: Socket) {
+    constructor(socket: Socket) {
     this.resetBuffer();
     this.outgoingBuffer = new PacketBuffer(2048);
     this.emitter = new EventEmitter();
@@ -40,21 +30,12 @@ export class PacketIO {
     socket.on('close', this.onClose.bind(this));
   }
 
-  /**
-   * Attaches an event listener to the PacketIO event emitter.
-   * @param event The event to listen for.
-   * @param listener The function to call when the event is fired.
-   */
-  on(event: string | symbol, listener: (...args: any[]) => void): this {
+    on(event: string | symbol, listener: (...args: any[]) => void): this {
     this.emitter.on(event, listener);
     return this;
   }
 
-  /**
-   * Removes all event listeners and destroys any resources held by the PacketIO.
-   * This should only be used when the PacketIO is no longer needed.
-   */
-  destroy(): void {
+    destroy(): void {
     if (this.socket) {
       this.socket.removeListener('data', this.processData.bind(this));
       this.socket.removeListener('close', this.onClose.bind(this));
@@ -69,11 +50,7 @@ export class PacketIO {
     });
   }
 
-  /**
-   * Sends a packet.
-   * @param packet The packet to send.
-   */
-  sendPacket(packet: OutgoingPacket): void {
+    sendPacket(packet: OutgoingPacket): void {
     if (this.socket.destroyed) {
       return;
     }
@@ -94,12 +71,7 @@ export class PacketIO {
     this.socket.write(this.outgoingBuffer.data.slice(0, packetSize));
   }
 
-  /**
-   * Emits a packet from this PacketIO instance. This will only
-   * emit the packet to the clients subscribed to this particular PacketIO.
-   * @param packet The packet to emit.
-   */
-  emitPacket(packet: IncomingPacket): void {
+    emitPacket(packet: IncomingPacket): void {
     if (packet) {
       this.emitter.emit('packet', packet);
     }

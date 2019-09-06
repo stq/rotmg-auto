@@ -1,11 +1,3 @@
-/**
- * @module models
- */
-/**
- * A static helper class for determining if a condition number has a particular `effect`.
- * @example
- * const isDazed = ConditionEffects.has(this.condition, ConditionEffect.DAZED);
- */
 export class ConditionEffects {
   static has(condition: number, effect: ConditionEffect): boolean {
     // tslint:disable no-bitwise
@@ -15,9 +7,6 @@ export class ConditionEffects {
   }
 }
 
-/**
- * The values of all condition effects in the game.
- */
 export enum ConditionEffect {
   NOTHING = 0,
   DEAD = 1,

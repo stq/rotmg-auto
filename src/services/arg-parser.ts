@@ -1,10 +1,3 @@
-/**
- * @module cli
- */
-/**
- * Parses command line arguments into an `ArgsResult` object.
- * @param args The arguments to parse.
- */
 export function parse(args: string[]): ArgsResult {
   let result: ArgsResult;
   // single dash args
@@ -41,16 +34,7 @@ export function parse(args: string[]): ArgsResult {
   return result;
 }
 
-/**
- * A dictionary-like object containing the result of parsing some command line arguments.
- */
 export interface ArgsResult {
-  /**
-   * An array of arguments which were 'floating' (not part of any flag).
-   */
-  args: string[];
-  /**
-   * A dictionary of parsed flags.
-   */
-  [flag: string]: any;
+    args: string[];
+    [flag: string]: any;
 }

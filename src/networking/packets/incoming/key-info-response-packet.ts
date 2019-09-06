@@ -1,31 +1,16 @@
-/**
- * @module networking/packets/incoming
- */
 import { PacketBuffer } from '../../packet-buffer';
 import { PacketType } from '../../packet-type';
 import { IncomingPacket } from '../../packet';
 
-/**
- * > Unknown.
- */
 export class KeyInfoResponsePacket implements IncomingPacket {
 
   type = PacketType.KEYINFO_RESPONSE;
   propagate = true;
 
   //#region packet-specific members
-  /**
-   * > Unknown.
-   */
-  name: string;
-  /**
-   * > Unknown.
-   */
-  description: string;
-  /**
-   * > Unknown.
-   */
-  creator: string;
+    name: string;
+    description: string;
+    creator: string;
   //#endregion
 
   read(buffer: PacketBuffer): void {

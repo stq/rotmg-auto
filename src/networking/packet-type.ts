@@ -1,9 +1,3 @@
-/**
- * @module networking
- */
-/**
- * A strongly typed representation of the packet types.
- */
 export enum PacketType {
   FAILURE = 'FAILURE',
   CREATESUCCESS = 'CREATESUCCESS',

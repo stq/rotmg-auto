@@ -1,15 +1,9 @@
-/**
- * @module stdlib
- */
 import { Library, PacketHook, Client } from './../core';
 import { PlayerData, Classes } from './../models';
 import { UpdatePacket, NewTickPacket } from './../networking/packets/incoming';
 import { ObjectStatusData } from './../networking/data';
 import { EventEmitter } from 'events';
 
-/**
- * An event listener for events emitted by the `PlayerTracker`.
- */
 export type PlayerEventListener = (player: PlayerData, client: Client) => void;
 
 @Library({
@@ -32,19 +26,11 @@ export class PlayerTracker {
     });
   }
 
-  /**
-   * Attaches an event listener to the specified event.
-   * @param event The event to attach the listener to.
-   * @param listener The function to invoke when the event is fired.
-   */
-  on(event: 'enter' | 'leave', listener: PlayerEventListener): EventEmitter {
+    on(event: 'enter' | 'leave', listener: PlayerEventListener): EventEmitter {
     return this.emitter.on(event, listener);
   }
 
-  /**
-   * Returns all tracked players, or an empty array if there are no clients tracking players.
-   */
-  getAllPlayers(): PlayerData[] {
+    getAllPlayers(): PlayerData[] {
     let players: PlayerData[] = [];
     Object.keys(this.trackedPlayers).map((guid) => {
       players = players.concat(this.trackedPlayers[guid]);
@@ -54,11 +40,7 @@ export class PlayerTracker {
     });
   }
 
-  /**
-   * Returns the list of players visible to the `client` provided.
-   * @param client The client to get players for.
-   */
-  getPlayersFor(client: Client): PlayerData[] | null {
+    getPlayersFor(client: Client): PlayerData[] | null {
     if (!this.trackedPlayers.hasOwnProperty(client.guid)) {
       return [];
     }
