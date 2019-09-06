@@ -1,11 +1,11 @@
-import { Server, CharacterInfo } from './../models';
+import {Server, CharacterInfo} from './../models';
 
 const SERVER_REGEX = /<Server><Name>(\w+)<\/Name><DNS>(\d+\.\d+\.\d+\.\d+)<\/DNS>/g;
 
 const ACCOUNT_INFO_REGEX = /<Chars nextCharId="(\d+)" maxNumChars="(\d+)">(?:<Char id="(\d+)">)*/;
 
 export class XMLtoJSON {
-    static parseServers(xml: string): { [id: string]: Server } {
+  static parseServers(xml: string): { [id: string]: Server } {
     let match = SERVER_REGEX.exec(xml);
     const servers = {} as { [id: string]: Server };
     while (match != null) {
@@ -20,7 +20,7 @@ export class XMLtoJSON {
     return servers;
   }
 
-    static parseAccountInfo(xml: string): CharacterInfo {
+  static parseAccountInfo(xml: string): CharacterInfo {
     const acc = {
       nextCharId: 2,
       charId: 1,

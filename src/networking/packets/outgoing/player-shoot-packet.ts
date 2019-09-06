@@ -1,18 +1,19 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class PlayerShootPacket implements OutgoingPacket {
 
   type = PacketType.PLAYERSHOOT;
 
   //#region packet-specific members
-    time: number;
-    bulletId: number;
-    containerType: number;
-    startingPos: WorldPosData;
-    angle: number;
+  time: number;
+  bulletId: number;
+  containerType: number;
+  startingPos: WorldPosData;
+  angle: number;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

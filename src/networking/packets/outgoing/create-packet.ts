@@ -1,14 +1,15 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
 
 export class CreatePacket implements OutgoingPacket {
 
   type = PacketType.CREATE;
 
   //#region packet-specific members
-    classType: number;
-    skinType: number;
+  classType: number;
+  skinType: number;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

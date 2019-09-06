@@ -1,8 +1,8 @@
-import { Library, PacketHook, Client } from './../core';
-import { PlayerData, Classes } from './../models';
-import { UpdatePacket, NewTickPacket } from './../networking/packets/incoming';
-import { ObjectStatusData } from './../networking/data';
-import { EventEmitter } from 'events';
+import {Library, PacketHook, Client} from './../core';
+import {PlayerData, Classes} from './../models';
+import {UpdatePacket, NewTickPacket} from './../networking/packets/incoming';
+import {ObjectStatusData} from './../networking/data';
+import {EventEmitter} from 'events';
 
 export type PlayerEventListener = (player: PlayerData, client: Client) => void;
 
@@ -26,11 +26,11 @@ export class PlayerTracker {
     });
   }
 
-    on(event: 'enter' | 'leave', listener: PlayerEventListener): EventEmitter {
+  on(event: 'enter' | 'leave', listener: PlayerEventListener): EventEmitter {
     return this.emitter.on(event, listener);
   }
 
-    getAllPlayers(): PlayerData[] {
+  getAllPlayers(): PlayerData[] {
     let players: PlayerData[] = [];
     Object.keys(this.trackedPlayers).map((guid) => {
       players = players.concat(this.trackedPlayers[guid]);
@@ -40,7 +40,7 @@ export class PlayerTracker {
     });
   }
 
-    getPlayersFor(client: Client): PlayerData[] | null {
+  getPlayersFor(client: Client): PlayerData[] | null {
     if (!this.trackedPlayers.hasOwnProperty(client.guid)) {
       return [];
     }

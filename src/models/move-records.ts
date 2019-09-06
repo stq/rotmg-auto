@@ -1,4 +1,4 @@
-import { MoveRecord } from '../networking/data/move-record';
+import {MoveRecord} from '../networking/data/move-record';
 
 export class MoveRecords {
   lastClearTime: number;

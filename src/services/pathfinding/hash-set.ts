@@ -1,4 +1,4 @@
-import { Hashable } from './hashable';
+import {Hashable} from './hashable';
 
 export class HashSet<T extends Hashable> {
   private map: {
@@ -9,19 +9,19 @@ export class HashSet<T extends Hashable> {
     this.map = {};
   }
 
-    add(item: T): void {
+  add(item: T): void {
     const hash = item.hash();
     this.map[hash] = item;
   }
 
-    remove(item: T): void {
+  remove(item: T): void {
     const hash = item.hash();
     if (this.map[hash]) {
       delete this.map[hash];
     }
   }
 
-    contains(item: T): boolean {
+  contains(item: T): boolean {
     return this.map.hasOwnProperty(item.hash());
   }
 }

@@ -1,6 +1,6 @@
-import { Socket } from 'net';
-import { Logger, LogLevel, Random, Storage } from '../services';
-import { PacketType, PacketIO, IncomingPacket } from './../networking';
+import {Socket} from 'net';
+import {Logger, LogLevel, Random, Storage} from '../services';
+import {PacketType, PacketIO, IncomingPacket} from './../networking';
 import {
   HelloPacket,
   LoadPacket,
@@ -47,15 +47,15 @@ import {
   GroundTileData,
   ObjectStatusData,
 } from './../networking/data';
-import { LibraryManager, ResourceManager } from './../core';
-import { PacketHook } from './../decorators';
-import { EventEmitter } from 'events';
-import { SocksClient } from 'socks';
-import { CLI } from '..';
-import { Pathfinder, NodeUpdate, Point } from '../services/pathfinding';
-import { FailureCode } from '../models/failure-code';
-import { GameId } from '../models/game-ids';
-import { MapTile } from '../models/map-tile';
+import {LibraryManager, ResourceManager} from './../core';
+import {PacketHook} from './../decorators';
+import {EventEmitter} from 'events';
+import {SocksClient} from 'socks';
+import {CLI} from '..';
+import {Pathfinder, NodeUpdate, Point} from '../services/pathfinding';
+import {FailureCode} from '../models/failure-code';
+import {GameId} from '../models/game-ids';
+import {MapTile} from '../models/map-tile';
 
 const MIN_MOVE_SPEED = 0.004;
 const MAX_MOVE_SPEED = 0.0096;
@@ -68,38 +68,45 @@ declare type ClientEvent = 'connect' | 'disconnect' | 'ready';
 
 export class Client {
 
-    static on(event: ClientEvent, listener: (client: Client) => void): EventEmitter {
+  static on(event: ClientEvent, listener: (client: Client) => void): EventEmitter {
     if (!this.emitter) {
       this.emitter = new EventEmitter();
     }
     return this.emitter.on(event, listener);
   }
+
   private static emitter: EventEmitter;
 
-    playerData: PlayerData;
-    objectId: number;
-    worldPos: WorldPosData;
-    packetio: PacketIO;
-    mapTiles: MapTile[];
-    readonly nextPos: WorldPosData[];
-    mapInfo: MapInfo;
-    readonly charInfo: CharacterInfo;
-    get server(): Server {
+  playerData: PlayerData;
+  objectId: number;
+  worldPos: WorldPosData;
+  packetio: PacketIO;
+  mapTiles: MapTile[];
+  readonly nextPos: WorldPosData[];
+  mapInfo: MapInfo;
+  readonly charInfo: CharacterInfo;
+
+  get server(): Server {
     return this.internalServer;
   }
-    alias: string;
-    readonly guid: string;
-    readonly password: string;
-    autoAim: boolean;
-    set moveMultiplier(value: number) {
+
+  alias: string;
+  readonly guid: string;
+  readonly password: string;
+  autoAim: boolean;
+
+  set moveMultiplier(value: number) {
     this.internalMoveMultiplier = Math.max(0, Math.min(value, 1));
   }
+
   get moveMultiplier(): number {
     return this.internalMoveMultiplier;
   }
-    get connected(): boolean {
+
+  get connected(): boolean {
     return this.socketConnected;
   }
+
   private socketConnected: boolean;
   private internalMoveMultiplier: number;
 
@@ -139,7 +146,7 @@ export class Client {
     [objectId: number]: Enemy;
   };
 
-    constructor(server: Server, buildVersion: string, accInfo: Account) {
+  constructor(server: Server, buildVersion: string, accInfo: Account) {
     if (!Client.emitter) {
       Client.emitter = new EventEmitter();
     }
@@ -168,7 +175,7 @@ export class Client {
     if (accInfo.charInfo) {
       this.charInfo = accInfo.charInfo;
     } else {
-      this.charInfo = { charId: 0, nextCharId: 1, maxNumChars: 1 };
+      this.charInfo = {charId: 0, nextCharId: 1, maxNumChars: 1};
     }
     this.internalServer = Object.assign({}, server);
     this.nexusServer = Object.assign({}, server);
@@ -176,7 +183,7 @@ export class Client {
     this.connect();
   }
 
-    shoot(angle: number): boolean {
+  shoot(angle: number): boolean {
     if (ConditionEffects.has(this.playerData.condition, ConditionEffect.STUNNED)) {
       return;
     }
@@ -224,7 +231,7 @@ export class Client {
     return true;
   }
 
-    destroy(): void {
+  destroy(): void {
     // packet io.
     if (this.packetio) {
       this.packetio.destroy();
@@ -262,7 +269,7 @@ export class Client {
     }
   }
 
-    setProxy(proxy: Proxy): void {
+  setProxy(proxy: Proxy): void {
     if (proxy) {
       Logger.log(this.alias, 'Connecting to new proxy.');
     } else {
@@ -272,7 +279,7 @@ export class Client {
     this.connect();
   }
 
-    connectToServer(server: Server): void {
+  connectToServer(server: Server): void {
     Logger.log(this.alias, `Switching to ${server.name}.`, LogLevel.Info);
     this.internalServer = server;
     this.nexusServer = server;
@@ -283,19 +290,19 @@ export class Client {
     return (this.nexusServer && this.nexusServer.name || '-') + '/' + (this.internalServer && this.internalServer.name || '-');
   }
 
-    changeGameId(gameId: GameId): void {
+  changeGameId(gameId: GameId): void {
     Logger.log(this.alias, `Changing gameId to ${gameId}`, LogLevel.Info);
     this.gameId = gameId;
     this.connect();
   }
 
-    blockNext(packetType: PacketType): void {
+  blockNext(packetType: PacketType): void {
     if (this.blockedPackets.indexOf(packetType) < 0) {
       this.blockedPackets.push(packetType);
     }
   }
 
-    broadcastPacket(packet: IncomingPacket): void {
+  broadcastPacket(packet: IncomingPacket): void {
     const clients = CLI.getClients();
     for (const client of clients) {
       if (client.guid !== this.guid) {
@@ -304,11 +311,11 @@ export class Client {
     }
   }
 
-    getTime(): number {
+  getTime(): number {
     return (Date.now() - this.connectTime);
   }
 
-    findPath(to: Point): void {
+  findPath(to: Point): void {
     if (!this.pathfinderEnabled) {
       Logger.log(this.alias, 'Pathfinding is not enabled. Please enable it in the acc-config.', LogLevel.Warning);
       return;
@@ -438,7 +445,7 @@ export class Client {
     }
     this.random = new Random(mapInfoPacket.fp);
     this.mapTiles = [];
-    this.mapInfo = { width: mapInfoPacket.width, height: mapInfoPacket.height, name: mapInfoPacket.name };
+    this.mapInfo = {width: mapInfoPacket.width, height: mapInfoPacket.height, name: mapInfoPacket.name};
     if (this.pathfinderEnabled) {
       this.pathfinder = new Pathfinder(mapInfoPacket.width);
     }
@@ -463,7 +470,7 @@ export class Client {
         if (gameObject.fullOccupy || gameObject.occupySquare) {
           const index = Math.floor(obj.status.pos.y) * this.mapInfo.width + Math.floor(obj.status.pos.x);
           if (!this.mapTiles[index]) {
-            this.mapTiles[index] = { occupied: true } as MapTile;
+            this.mapTiles[index] = {occupied: true} as MapTile;
           } else {
             this.mapTiles[index].occupied = true;
           }

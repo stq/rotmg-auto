@@ -1,13 +1,14 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
 
 export class ChangeTradePacket implements OutgoingPacket {
 
   type = PacketType.CHANGETRADE;
 
   //#region packet-specific members
-    offer: boolean[];
+  offer: boolean[];
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

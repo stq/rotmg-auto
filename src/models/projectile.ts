@@ -1,32 +1,30 @@
-import { GameObject, ProjectileInfo } from './object';
-import { ResourceManager } from '../core/resource-manager';
-import { Point } from '../services/pathfinding/point';
+import {GameObject, ProjectileInfo} from './object';
+import {ResourceManager} from '../core/resource-manager';
+import {Point} from '../services/pathfinding/point';
 
 export class Projectile {
 
-    containerType: number;
-    bulletType: number;
-    ownerObjectId: number;
-    bulletId: number;
-    startAngle: number;
-    startTime: number;
-    startPosition: Point;
-    containerProperties: GameObject;
-    projectileProperties: ProjectileInfo;
-    damagePlayers: boolean;
-    damageEnemies: boolean;
-    damage: number;
-    currentPosition: Point;
+  containerType: number;
+  bulletType: number;
+  ownerObjectId: number;
+  bulletId: number;
+  startAngle: number;
+  startTime: number;
+  startPosition: Point;
+  containerProperties: GameObject;
+  projectileProperties: ProjectileInfo;
+  damagePlayers: boolean;
+  damageEnemies: boolean;
+  damage: number;
+  currentPosition: Point;
 
-  constructor(
-    containerType: number,
-    bulletType: number,
-    ownerObjectId: number,
-    bulletId: number,
-    startAngle: number,
-    startTime: number,
-    startPosition: Point
-  ) {
+  constructor(containerType: number,
+              bulletType: number,
+              ownerObjectId: number,
+              bulletId: number,
+              startAngle: number,
+              startTime: number,
+              startPosition: Point) {
     this.containerType = containerType;
     this.bulletType = bulletType;
     this.ownerObjectId = ownerObjectId;

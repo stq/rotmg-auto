@@ -1,15 +1,16 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class AoeAckPacket implements OutgoingPacket {
 
   type = PacketType.AOEACK;
 
   //#region packet-specific members
-    time: number;
-    position: WorldPosData;
+  time: number;
+  position: WorldPosData;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

@@ -1,12 +1,13 @@
-import { createServer, Server, Socket } from 'net';
-import { Logger, LogLevel } from './logger';
-import { SocketWrapper, environment } from '../models';
-import { EventEmitter } from 'events';
+import {createServer, Server, Socket} from 'net';
+import {Logger, LogLevel} from './logger';
+import {SocketWrapper, environment} from '../models';
+import {EventEmitter} from 'events';
 
 const DEFAULT_PORT = 5680;
+
 export class LocalServer {
 
-    static init(port?: number): void {
+  static init(port?: number): void {
     if (!port) {
       port = DEFAULT_PORT;
     }
@@ -31,7 +32,7 @@ export class LocalServer {
     this.server.listen(port);
   }
 
-    static write(message: string | Buffer): void {
+  static write(message: string | Buffer): void {
     if (!this.sockets) {
       return;
     }
@@ -51,18 +52,20 @@ export class LocalServer {
     buffer = null;
   }
 
-    static on(event: 'message', listener: (message: string) => void): EventEmitter {
+  static on(event: 'message', listener: (message: string) => void): EventEmitter {
     if (!this.emitter) {
       this.emitter = new EventEmitter();
     }
     return this.emitter.on(event, listener);
   }
+
   private static emitter: EventEmitter;
 
   private static socketIdCounter = 0;
   private static sockets: SocketWrapper[];
   private static server: Server;
   private static initialized = false;
+
   private static onConnection(socket: Socket): void {
     const wrapper = new SocketWrapper(this.getNextSocketId(), socket);
     this.sockets.push(wrapper);

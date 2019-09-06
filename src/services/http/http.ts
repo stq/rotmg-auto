@@ -1,10 +1,10 @@
 import * as http from 'http';
 import * as qs from 'querystring';
 import * as url from 'url';
-import { REQUEST_HEADERS, HttpClient } from './http-client';
+import {REQUEST_HEADERS, HttpClient} from './http-client';
 
 export class Http {
-    static get(path: string, query: string): Promise<string> {
+  static get(path: string, query: string): Promise<string> {
     const opts: http.RequestOptions = {
       hostname: path,
       path: query,
@@ -37,7 +37,7 @@ export class Http {
     });
   }
 
-    static post(endpoint: url.Url, params?: { [id: string]: any }): Promise<any> {
+  static post(endpoint: url.Url, params?: { [id: string]: any }): Promise<any> {
     return new Promise((resolve: (data: string) => void, reject: (err: Error) => void) => {
       const postData = qs.stringify(params);
       const options = {

@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { TradeItem } from '../../data/trade-item';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {TradeItem} from '../../data/trade-item';
 
 export class TradeStartPacket implements IncomingPacket {
 
@@ -9,9 +9,10 @@ export class TradeStartPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    clientItems: TradeItem[];
-    partnerName: string;
-    partnerItems: TradeItem[];
+  clientItems: TradeItem[];
+  partnerName: string;
+  partnerItems: TradeItem[];
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

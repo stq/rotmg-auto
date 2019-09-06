@@ -1,4 +1,4 @@
-import { LibraryInfo } from './../models/plugin-info';
+import {LibraryInfo} from './../models/plugin-info';
 
 export interface Type<T> {
   new(...args: any[]): T;

@@ -5,12 +5,12 @@ export class RC4 {
   private i: number;
   private j: number;
 
-    constructor(key: Buffer) {
+  constructor(key: Buffer) {
     this.key = key;
     this.reset();
   }
 
-    cipher(data: Buffer): void {
+  cipher(data: Buffer): void {
     for (let n = 0; n < data.length; n++) {
       this.i = (this.i + 1) % 256;
       this.j = (this.j + this.state[this.i]) % 256;
@@ -24,7 +24,7 @@ export class RC4 {
     }
   }
 
-    private reset(): void {
+  private reset(): void {
     this.state = new Array(256);
     this.i = 0;
     this.j = 0;

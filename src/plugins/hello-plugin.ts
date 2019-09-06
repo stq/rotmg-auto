@@ -48,7 +48,7 @@ function processCalbrikQuotes(client: any, textPacket: any) {
   console.log('\u0007');
 
   var fps = _.keys(realmStateMap);
-  var fp = _.find(fps, (f:any) => {
+  var fp = _.find(fps, (f: any) => {
     var watchers = realmStateMap[f].watchers;
     return watchers[client.alias];
   });
@@ -60,7 +60,7 @@ function processCalbrikQuotes(client: any, textPacket: any) {
 
   const text = textPacket.text.substr(0, 10);
 
-  const message = 'CALBRIK ' + text + " " + client.serverUid() + ' ' + client.alias ;
+  const message = 'CALBRIK ' + text + " " + client.serverUid() + ' ' + client.alias;
   console.log(message);
 
   if (text.substr(0, 7) == 'My ship') {
@@ -70,10 +70,11 @@ function processCalbrikQuotes(client: any, textPacket: any) {
     // client.changeGameId(GameId.RandomRealm);
 
   } else {
-    if( realmState.ufoDead ) {
+    if (realmState.ufoDead) {
       realmState.smsSent = false;
       realmState.ufoDead = false;
-    };
+    }
+    ;
   }
 
   if (!realmState.ufoDead && !realmState.smsSent) {
@@ -109,9 +110,9 @@ class HelloPlugin {
     getRealmState(mapInfo.fp).watchers[client.alias] = true;
 
 
-    if( getRealmState(mapInfo.fp).name === undefined ) {
+    if (getRealmState(mapInfo.fp).name === undefined) {
       getRealmState(mapInfo.fp).name = client.serverUid();
-    } else if( getRealmState(mapInfo.fp).name != client.serverUid() ) {
+    } else if (getRealmState(mapInfo.fp).name != client.serverUid()) {
       console.warn('Seems like realm was reset ', getRealmState(mapInfo.fp).name, client.serverUid());
     }
 
@@ -119,7 +120,7 @@ class HelloPlugin {
       console.log('Changing location for ' + client.alias + ' because it is in Nexus');
       delete getRealmState(mapInfo.fp).watchers[client.alias];
       client.changeGameId(GameId.RandomRealm);
-    } else if(mapInfo.name == 'Oryx\'s Castle'){
+    } else if (mapInfo.name == 'Oryx\'s Castle') {
       console.log('Changing location for ' + client.alias + ' because it is Oryx Castle');
       delete getRealmState(mapInfo.fp).watchers[client.alias];
       client.changeGameId(GameId.RandomRealm);

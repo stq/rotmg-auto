@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { ObjectStatusData } from '../../data/object-status-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {ObjectStatusData} from '../../data/object-status-data';
 
 export class NewTickPacket implements IncomingPacket {
 
@@ -9,9 +9,10 @@ export class NewTickPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    tickId: number;
-    tickTime: number;
-    statuses: ObjectStatusData[];
+  tickId: number;
+  tickTime: number;
+  statuses: ObjectStatusData[];
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

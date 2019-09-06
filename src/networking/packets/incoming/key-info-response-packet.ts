@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class KeyInfoResponsePacket implements IncomingPacket {
 
@@ -8,9 +8,10 @@ export class KeyInfoResponsePacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    name: string;
-    description: string;
-    creator: string;
+  name: string;
+  description: string;
+  creator: string;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

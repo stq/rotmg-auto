@@ -1,11 +1,11 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
 
 export class GroundTileData implements DataPacket {
 
-    x: number;
-    y: number;
-    type: number;
+  x: number;
+  y: number;
+  type: number;
 
   read(packet: PacketBuffer): void {
     this.x = packet.readShort();

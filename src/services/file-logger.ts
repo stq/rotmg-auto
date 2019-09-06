@@ -1,10 +1,11 @@
-import { LogProvider, LogLevel } from './logger';
-import { WriteStream } from 'fs';
-import { StringUtils } from './string-utils';
+import {LogProvider, LogLevel} from './logger';
+import {WriteStream} from 'fs';
+import {StringUtils} from './string-utils';
 
 export class FileLogger implements LogProvider {
 
-  constructor(private logStream: WriteStream) { }
+  constructor(private logStream: WriteStream) {
+  }
 
   log(sender: string, message: string, level: LogLevel): void {
     const senderString = (`[${StringUtils.getTime()} | ${sender}]`);

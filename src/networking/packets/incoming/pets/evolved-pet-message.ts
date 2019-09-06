@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../../packet-buffer';
-import { PacketType } from '../../../packet-type';
-import { IncomingPacket } from '../../../packet';
+import {PacketBuffer} from '../../../packet-buffer';
+import {PacketType} from '../../../packet-type';
+import {IncomingPacket} from '../../../packet';
 
 export class EvolvedPetMessage implements IncomingPacket {
 
@@ -8,9 +8,10 @@ export class EvolvedPetMessage implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    petId: number;
-    initialSkin: number;
-    finalSkin: number;
+  petId: number;
+  initialSkin: number;
+  finalSkin: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

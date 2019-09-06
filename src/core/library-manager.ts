@@ -1,8 +1,8 @@
-import { Logger, LogLevel, Storage } from './../services';
-import { Client } from './client';
+import {Logger, LogLevel, Storage} from './../services';
+import {Client} from './client';
 import * as fs from 'fs';
-import { LoadedLib, ManagedLib, HookInfo } from './lib-info';
-import { IncomingPacket } from '../networking';
+import {LoadedLib, ManagedLib, HookInfo} from './lib-info';
+import {IncomingPacket} from '../networking';
 
 const PLUGIN_REGEX = /^.+\.js$/;
 
@@ -12,14 +12,16 @@ export class LibraryManager {
   static readonly hookStore: Map<string, Array<HookInfo<any>>> = new Map();
   static readonly clientHookStore: Map<string, HookInfo<Client>> = new Map();
 
-    static loadPlugins(): void {
+  static loadPlugins(): void {
     const folderPath = Storage.makePath('dist', 'plugins');
     let files: string[] = [];
     try {
       files = fs.readdirSync(folderPath);
     } catch {
-      Logger.log('PluginManager', 'Couldn\'t find plugins directory', LogLevel.Warning);
-    }
+      Logger
+  .
+    log('PluginManager', 'Couldn\'t find plugins directory', LogLevel.Warning);
+  }
     for (const file of files) {
       try {
         const relPath = Storage.makePath('dist', 'plugins', file);
@@ -41,7 +43,7 @@ export class LibraryManager {
     }
   }
 
-    static loadHook<T>(info: HookInfo<T>): void {
+  static loadHook<T>(info: HookInfo<T>): void {
     if (info.target === 'Client') {
       this.clientHookStore.set(info.packet, info as any);
     } else {
@@ -52,7 +54,7 @@ export class LibraryManager {
     }
   }
 
-    static loadLibrary<T>(lib: LoadedLib<T>): void {
+  static loadLibrary<T>(lib: LoadedLib<T>): void {
     if (this.libStore.has(lib.target.name)) {
       const existing = this.libStore.get(lib.target.name);
       if (existing.info.dependencies.some((v, i) => v !== lib.dependencies[i])) {
@@ -90,7 +92,7 @@ export class LibraryManager {
     }
   }
 
-    static getInstanceOf<T extends object>(instance: new () => T): T {
+  static getInstanceOf<T extends object>(instance: new () => T): T {
     Logger.log('Deprecation', 'getInstanceOf is deprecated. Use dependency injection instead.', LogLevel.Warning);
     const lib = this.libStore.get(instance.name);
     if (lib && lib.instance) {
@@ -100,14 +102,14 @@ export class LibraryManager {
     }
   }
 
-    static afterInit(method: () => void): void {
+  static afterInit(method: () => void): void {
     if (!this.afterInitFunctions) {
       this.afterInitFunctions = [];
     }
     this.afterInitFunctions.push(method);
   }
 
-    static callHooks(packet: IncomingPacket, client: Client): void {
+  static callHooks(packet: IncomingPacket, client: Client): void {
     const name = packet.constructor.name;
     if (this.hookStore.has(name)) {
       const hooks = this.hookStore.get(name);

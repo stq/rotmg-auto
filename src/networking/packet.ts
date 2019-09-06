@@ -1,18 +1,21 @@
-import { PacketBuffer } from './packet-buffer';
-import { PacketType } from './packet-type';
+import {PacketBuffer} from './packet-buffer';
+import {PacketType} from './packet-type';
 
 export interface OutgoingPacket {
-    type: PacketType;
-    write(buffer: PacketBuffer): void;
+  type: PacketType;
+
+  write(buffer: PacketBuffer): void;
 }
 
 export interface IncomingPacket {
-    type: PacketType;
-    propagate: boolean;
-    read(buffer: PacketBuffer): void;
+  type: PacketType;
+  propagate: boolean;
+
+  read(buffer: PacketBuffer): void;
 }
 
 export interface DataPacket {
-    write(buffer: PacketBuffer): void;
-    read(buffer: PacketBuffer): void;
+  write(buffer: PacketBuffer): void;
+
+  read(buffer: PacketBuffer): void;
 }

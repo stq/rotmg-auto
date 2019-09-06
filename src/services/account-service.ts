@@ -1,17 +1,17 @@
-import { Proxy, CharacterInfo, SERVER_ENDPOINT, Server } from '../models';
-import { HttpClient } from './http';
-import { XMLtoJSON } from './xmltojson';
+import {Proxy, CharacterInfo, SERVER_ENDPOINT, Server} from '../models';
+import {HttpClient} from './http';
+import {XMLtoJSON} from './xmltojson';
 import * as net from 'net';
 import * as dns from 'dns';
-import { Logger, LogLevel } from '../core';
-import { Storage } from './storage';
+import {Logger, LogLevel} from '../core';
+import {Storage} from './storage';
 
 const ACCOUNT_IN_USE_REGEX = /Account in use \((\d+) seconds? until timeout\)/;
 const ERROR_REGEX = /<Error\/?>(.+)<\/?Error>/;
 
 export class AccountService {
 
-    static resolveProxyHostname(proxy: Proxy): Promise<void> {
+  static resolveProxyHostname(proxy: Proxy): Promise<void> {
     if (!proxy) {
       return Promise.resolve();
     }
@@ -33,7 +33,7 @@ export class AccountService {
     }
   }
 
-    static getServerList(): Promise<{ [name: string]: Server }> {
+  static getServerList(): Promise<{ [name: string]: Server }> {
     if (this.internalServerList) {
       return Promise.resolve(this.internalServerList);
     }
@@ -58,7 +58,7 @@ export class AccountService {
     });
   }
 
-    static getCharacterInfo(guid: string, password: string, proxy?: Proxy): Promise<CharacterInfo> {
+  static getCharacterInfo(guid: string, password: string, proxy?: Proxy): Promise<CharacterInfo> {
     return HttpClient.get(SERVER_ENDPOINT, {
       proxy: proxy,
       query: {

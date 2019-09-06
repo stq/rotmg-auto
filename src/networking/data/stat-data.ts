@@ -1,11 +1,11 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
-import { StatType } from '../../models/stat-type';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
+import {StatType} from '../../models/stat-type';
 
 export class StatData implements DataPacket {
-    statType = 0;
-    statValue: number;
-    stringStatValue: string;
+  statType = 0;
+  statValue: number;
+  stringStatValue: string;
 
   read(packet: PacketBuffer): void {
     this.statType = packet.readUnsignedByte();

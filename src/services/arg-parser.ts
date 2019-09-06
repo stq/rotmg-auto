@@ -35,6 +35,7 @@ export function parse(args: string[]): ArgsResult {
 }
 
 export interface ArgsResult {
-    args: string[];
-    [flag: string]: any;
+  args: string[];
+
+  [flag: string]: any;
 }

@@ -1,13 +1,23 @@
-import { Updater, LocalServer, Logger, LogLevel, Storage, AccountService, StringUtils, DefaultLogger, FileLogger } from './services';
-import { AccountInfo, Account, CharacterInfo, Server, environment } from './models';
-import { LibraryManager, ResourceManager, Client } from './core';
+import {
+  Updater,
+  LocalServer,
+  Logger,
+  LogLevel,
+  Storage,
+  AccountService,
+  StringUtils,
+  DefaultLogger,
+  FileLogger
+} from './services';
+import {AccountInfo, Account, CharacterInfo, Server, environment} from './models';
+import {LibraryManager, ResourceManager, Client} from './core';
 import * as net from 'net';
 import * as fs from 'fs';
 import * as argParser from './services/arg-parser';
-import { Mapper } from './networking';
+import {Mapper} from './networking';
 
 export class CLI {
-    static addClient(account: Account, charInfo?: CharacterInfo): Promise<Client> {
+  static addClient(account: Account, charInfo?: CharacterInfo): Promise<Client> {
     if (!account.alias) {
       account.alias = StringUtils.censorGuid(account.guid);
     }
@@ -54,7 +64,7 @@ export class CLI {
     });
   }
 
-    static removeAny(predicate: (client: Client) => boolean): number {
+  static removeAny(predicate: (client: Client) => boolean): number {
     const keysToRemove = Object.keys(this.clients)
       .filter((k) => predicate(this.clients[k]));
     for (const key of keysToRemove) {
@@ -66,13 +76,13 @@ export class CLI {
     return keysToRemove.length;
   }
 
-    static getAny(predicate: (client: Client) => boolean): Client[] {
+  static getAny(predicate: (client: Client) => boolean): Client[] {
     return Object.keys(this.clients)
       .map((k) => this.clients[k])
       .filter((client) => predicate(client));
   }
 
-    static getClients(): Client[] {
+  static getClients(): Client[] {
     if (!this.clients) {
       return new Array<Client>(0);
     }
@@ -236,7 +246,7 @@ export class CLI {
   }
 
   public static getBuildVersion() {
-    if( CLI.buildVersion ) return CLI.buildVersion;
+    if (CLI.buildVersion) return CLI.buildVersion;
 
     const parametersFile = fs.readFileSync("./src/services/updater-assets/decompiled/scripts/com/company/assembleegameclient/parameters/Parameters.as", 'utf-8');
     const build = parametersFile.match(/BUILD_VERSION:String = "X(\d+.\d+)/)[1];

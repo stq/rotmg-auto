@@ -1,4 +1,5 @@
-import { GroundTileData } from '../networking';
+import {GroundTileData} from '../networking';
+
 export declare type MapTile = GroundTileData & {
-    occupied: boolean
+  occupied: boolean
 };

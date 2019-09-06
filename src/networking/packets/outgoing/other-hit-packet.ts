@@ -1,16 +1,17 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
 
 export class OtherHitPacket implements OutgoingPacket {
 
   type = PacketType.OTHERHIT;
 
   //#region packet-specific members
-    time: number;
-    bulletId: number;
-    objectId: number;
-    targetId: number;
+  time: number;
+  bulletId: number;
+  objectId: number;
+  targetId: number;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

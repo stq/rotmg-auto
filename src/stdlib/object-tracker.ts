@@ -1,6 +1,6 @@
-import { Library, PacketHook, Client } from '../core';
-import { EventEmitter } from 'events';
-import { ObjectData, UpdatePacket, NewTickPacket } from '../networking';
+import {Library, PacketHook, Client} from '../core';
+import {EventEmitter} from 'events';
+import {ObjectData, UpdatePacket, NewTickPacket} from '../networking';
 
 export type ObjectEventListener = (obj: ObjectData, client: Client) => void;
 
@@ -24,12 +24,12 @@ export class ObjectTracker {
     this.trackedObjects = {};
   }
 
-    on(event: number | 'any', listener: ObjectEventListener): this {
+  on(event: number | 'any', listener: ObjectEventListener): this {
     this.emitter.on(event.toString(), listener);
     return this;
   }
 
-    startTracking(objectType: number, listener?: ObjectEventListener): this {
+  startTracking(objectType: number, listener?: ObjectEventListener): this {
     this.trackedTypes[objectType] = true;
     if (listener) {
       this.on(objectType, listener);
@@ -37,7 +37,7 @@ export class ObjectTracker {
     return this;
   }
 
-    stopTracking(objectType: number): this {
+  stopTracking(objectType: number): this {
     if (!this.trackedTypes.hasOwnProperty(objectType)) {
       return;
     }

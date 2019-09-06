@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class NotificationPacket implements IncomingPacket {
 
@@ -8,9 +8,10 @@ export class NotificationPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    objectId: number;
-    message: string;
-    color: number;
+  objectId: number;
+  message: string;
+  color: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class ReconnectPacket implements IncomingPacket {
 
@@ -8,14 +8,15 @@ export class ReconnectPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    name: string;
-    host: string;
-    stats: string;
-    port: number;
-    gameId: number;
-    keyTime: number;
-    key: number[];
-    isFromArena: boolean;
+  name: string;
+  host: string;
+  stats: string;
+  port: number;
+  gameId: number;
+  keyTime: number;
+  key: number[];
+  isFromArena: boolean;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

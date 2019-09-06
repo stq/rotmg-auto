@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class DeathPacket implements IncomingPacket {
 
@@ -8,12 +8,13 @@ export class DeathPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    accountId: string;
-    charId: number;
-    killedBy: string;
-    zombieId: number;
-    zombieType: number;
-    isZombie: boolean;
+  accountId: string;
+  charId: number;
+  killedBy: string;
+  zombieId: number;
+  zombieType: number;
+  isZombie: boolean;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

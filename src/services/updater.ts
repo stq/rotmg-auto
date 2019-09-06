@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { exec } from 'child_process';
+import {exec} from 'child_process';
 
 import * as https from 'https';
-import { createWriteStream, PathLike } from 'fs';
-import { Logger, LogLevel } from './../services';
-import { ASSET_ENDPOINT, CLIENT_VERSION_ENDPOINT, CLIENT_DL_ENDPOINT } from '../models';
-import { HttpClient } from './http';
-import { PacketIdMap, PacketType, Mapper } from '../networking';
+import {createWriteStream, PathLike} from 'fs';
+import {Logger, LogLevel} from './../services';
+import {ASSET_ENDPOINT, CLIENT_VERSION_ENDPOINT, CLIENT_DL_ENDPOINT} from '../models';
+import {HttpClient} from './http';
+import {PacketIdMap, PacketType, Mapper} from '../networking';
 
 const PACKET_REGEX = /static const ([A-Z_]+):int = (\d+);/g;
 const dir = path.dirname(require.main.filename);
@@ -25,19 +25,19 @@ export interface VersionInfo {
 
 export class Updater {
 
-    static isClientOutdated(localVersion: string): Promise<boolean> {
+  static isClientOutdated(localVersion: string): Promise<boolean> {
     return this.getRemoteClientVersion().then((version) => {
       return localVersion !== version;
     });
   }
 
-    static areAssetsOutdated(localVersion: string): Promise<boolean> {
+  static areAssetsOutdated(localVersion: string): Promise<boolean> {
     return this.getRemoteAssetVersion().then((version) => {
       return localVersion !== version;
     });
   }
 
-    static getCurrentVersion(versionPath: string = DEFAULT_VERSION_PATH): VersionInfo {
+  static getCurrentVersion(versionPath: string = DEFAULT_VERSION_PATH): VersionInfo {
     try {
       return require(versionPath);
     } catch (error) {
@@ -54,19 +54,19 @@ export class Updater {
     }
   }
 
-    static updateLocalAssetVersion(version: string, versionPath: string): void {
+  static updateLocalAssetVersion(version: string, versionPath: string): void {
     const current = this.getCurrentVersion(versionPath);
     current.assetVersion = version;
     fs.writeFileSync(versionPath, JSON.stringify(current));
   }
 
-    static updateLocalClientVersion(version: string, versionPath: string): void {
+  static updateLocalClientVersion(version: string, versionPath: string): void {
     const current = this.getCurrentVersion(versionPath);
     current.clientVersion = version;
     fs.writeFileSync(versionPath, JSON.stringify(current));
   }
 
-    static getClient(version: string): Promise<any> {
+  static getClient(version: string): Promise<any> {
     const downloadPath = CLIENT_DL_ENDPOINT.replace('{{version}}', version);
     const clientPath = path.join(dir, 'src', 'services', 'updater-assets', 'client.swf');
     this.emptyFile(clientPath);
@@ -94,7 +94,7 @@ export class Updater {
     });
   }
 
-    static getGroundTypes(): Promise<any> {
+  static getGroundTypes(): Promise<any> {
     if (!fs.existsSync(path.join(dir, 'resources'))) {
       fs.mkdirSync(path.join(dir, 'resources'));
     }
@@ -124,7 +124,7 @@ export class Updater {
     });
   }
 
-    static getObjects(): Promise<any> {
+  static getObjects(): Promise<any> {
     const objectsPath = path.join(dir, 'resources', 'Objects.json');
     this.emptyFile(objectsPath);
     const objectsStream = createWriteStream(objectsPath);
@@ -151,19 +151,19 @@ export class Updater {
     });
   }
 
-    static getRemoteClientVersion(): Promise<string> {
+  static getRemoteClientVersion(): Promise<string> {
     return HttpClient.get(CLIENT_VERSION_ENDPOINT).then((result) => {
       return result.replace(/[^0-9]/g, '');
     });
   }
 
-    static getRemoteAssetVersion(): Promise<string> {
+  static getRemoteAssetVersion(): Promise<string> {
     return HttpClient.get(ASSET_ENDPOINT + '/current/version.txt').then((result) => {
       return result.replace(/[^0-9]/g, '');
     });
   }
 
-    static getRemoteVersions(): Promise<VersionInfo> {
+  static getRemoteVersions(): Promise<VersionInfo> {
     return Promise.all([
       this.getRemoteClientVersion(),
       this.getRemoteAssetVersion()
@@ -175,7 +175,7 @@ export class Updater {
     });
   }
 
-    static getLatestAssets(): Promise<any> {
+  static getLatestAssets(): Promise<any> {
     return Promise.all([
       this.getGroundTypes(),
       this.getObjects()
@@ -186,7 +186,7 @@ export class Updater {
     });
   }
 
-    static getLatestClient(): Promise<any> {
+  static getLatestClient(): Promise<any> {
     let clientVersion: string;
     return this.getRemoteClientVersion().then((version) => {
       clientVersion = version;
@@ -198,7 +198,7 @@ export class Updater {
     });
   }
 
-    static getLatest(): Promise<any> {
+  static getLatest(): Promise<any> {
     return Promise.all([
       this.getLatestClient(),
       this.getLatestAssets()
@@ -209,7 +209,7 @@ export class Updater {
     });
   }
 
-    static updateFrom(parentDir: string): Promise<any> {
+  static updateFrom(parentDir: string): Promise<any> {
     const realPath = parentDir.split(/\/|\\/g).join(path.sep);
     let swfDir = realPath;
     let swfName = 'client.swf';
@@ -226,19 +226,19 @@ export class Updater {
     });
   }
 
-    private static emptyFile(filePath: PathLike): void {
+  private static emptyFile(filePath: PathLike): void {
     try {
       fs.truncateSync(filePath, 0);
     } catch (error) {
       if (error.code === 'ENOENT') {
-        fs.writeFileSync(filePath, '', { encoding: 'utf8' });
+        fs.writeFileSync(filePath, '', {encoding: 'utf8'});
       } else {
         throw error;
       }
     }
   }
 
-    private static unpackSwf(parentDir: string, swfName: string): Promise<any> {
+  private static unpackSwf(parentDir: string, swfName: string): Promise<any> {
     return new Promise((resolve: () => void, reject: (err: Error) => void) => {
       Logger.log('Updater', `Unpacking ${swfName}`, LogLevel.Info);
       const args = [
@@ -261,9 +261,9 @@ export class Updater {
     });
   }
 
-    private static extractPacketInfo(assetPath: string): PacketIdMap {
+  private static extractPacketInfo(assetPath: string): PacketIdMap {
     let raw = null;
-    raw = fs.readFileSync(assetPath, { encoding: 'utf8' });
+    raw = fs.readFileSync(assetPath, {encoding: 'utf8'});
     const packets: PacketIdMap = {};
     let match = PACKET_REGEX.exec(raw);
     while (match != null) {
@@ -274,9 +274,9 @@ export class Updater {
     return packets;
   }
 
-    private static updatePackets(newPackets: PacketIdMap): void {
+  private static updatePackets(newPackets: PacketIdMap): void {
     const filePath = path.join(dir, 'packets.json');
-    fs.writeFileSync(filePath, JSON.stringify(newPackets), { encoding: 'utf8' });
+    fs.writeFileSync(filePath, JSON.stringify(newPackets), {encoding: 'utf8'});
     Mapper.mapIds(newPackets);
     Logger.log('Updater', 'Updated packets.json', LogLevel.Success);
   }

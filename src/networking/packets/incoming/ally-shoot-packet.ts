@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class AllyShootPacket implements IncomingPacket {
 
@@ -8,10 +8,11 @@ export class AllyShootPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    bulletId: number;
-    ownerId: number;
-    containerType: number;
-    angle: number;
+  bulletId: number;
+  ownerId: number;
+  containerType: number;
+  angle: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

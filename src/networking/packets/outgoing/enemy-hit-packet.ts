@@ -1,16 +1,17 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
 
 export class EnemyHitPacket implements OutgoingPacket {
 
   type = PacketType.ENEMYHIT;
 
   //#region packet-specific members
-    time: number;
-    bulletId: number;
-    targetId: number;
-    kill: boolean;
+  time: number;
+  bulletId: number;
+  targetId: number;
+  kill: boolean;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

@@ -1,13 +1,14 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
 
 export class ChooseNamePacket implements OutgoingPacket {
 
   type = PacketType.CHOOSENAME;
 
   //#region packet-specific members
-    name: string;
+  name: string;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

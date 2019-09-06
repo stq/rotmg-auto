@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../../packet-buffer';
-import { PacketType } from '../../../packet-type';
-import { IncomingPacket } from '../../../packet';
+import {PacketBuffer} from '../../../packet-buffer';
+import {PacketType} from '../../../packet-type';
+import {IncomingPacket} from '../../../packet';
 
 export class DeletePetMessage implements IncomingPacket {
 
@@ -8,7 +8,8 @@ export class DeletePetMessage implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    petId: number;
+  petId: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

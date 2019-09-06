@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class ClientStatPacket implements IncomingPacket {
 
@@ -8,8 +8,9 @@ export class ClientStatPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    name: string;
-    value: number;
+  name: string;
+  value: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

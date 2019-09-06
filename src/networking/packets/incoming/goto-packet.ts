@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class GotoPacket implements IncomingPacket {
 
@@ -9,8 +9,9 @@ export class GotoPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    objectId: number;
-    position: WorldPosData;
+  objectId: number;
+  position: WorldPosData;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

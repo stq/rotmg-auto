@@ -1,27 +1,28 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
-import { RSA } from '../../../crypto';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
+import {RSA} from '../../../crypto';
 
 export class HelloPacket implements OutgoingPacket {
 
   type = PacketType.HELLO;
 
   //#region packet-specific members
-    buildVersion: string;
-    gameId: number;
-    guid: string;
-    password: string;
-    secret: string;
-    keyTime: number;
-    key: number[];
-    mapJSON: string;
-    entryTag: string;
-    gameNet: string;
-    gameNetUserId: string;
-    playPlatform: string;
-    platformToken: string;
-    userToken: string;
+  buildVersion: string;
+  gameId: number;
+  guid: string;
+  password: string;
+  secret: string;
+  keyTime: number;
+  key: number[];
+  mapJSON: string;
+  entryTag: string;
+  gameNet: string;
+  gameNetUserId: string;
+  playPlatform: string;
+  platformToken: string;
+  userToken: string;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

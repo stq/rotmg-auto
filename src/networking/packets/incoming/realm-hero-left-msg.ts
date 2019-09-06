@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class RealmHeroLeftMessage implements IncomingPacket {
 
@@ -8,7 +8,8 @@ export class RealmHeroLeftMessage implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    realmHeroesLeft: number;
+  realmHeroesLeft: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

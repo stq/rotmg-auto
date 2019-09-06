@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class AccountListPacket implements IncomingPacket {
 
@@ -8,9 +8,10 @@ export class AccountListPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    accountListId: number;
-    accountIds: string[];
-    lockAction: number;
+  accountListId: number;
+  accountIds: string[];
+  lockAction: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

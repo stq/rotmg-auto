@@ -1,8 +1,8 @@
-import { Node } from './node';
-import { Point } from './point';
-import { Heap } from './heap';
-import { HashSet } from './hash-set';
-import { NodeUpdate } from './node-update';
+import {Node} from './node';
+import {Point} from './point';
+import {Heap} from './heap';
+import {HashSet} from './hash-set';
+import {NodeUpdate} from './node-update';
 
 export class Pathfinder {
   private nodes: Node[];
@@ -20,7 +20,7 @@ export class Pathfinder {
     }
   }
 
-    findPath(start: Point, end: Point): Promise<Point[]> {
+  findPath(start: Point, end: Point): Promise<Point[]> {
     return new Promise((resolve: (path: Point[]) => void, reject: (err: Error) => void) => {
       const startNode = this.nodes[this.getIndex(start.x, start.y)];
       const endNode = this.nodes[this.getIndex(end.x, end.y)];
@@ -63,14 +63,14 @@ export class Pathfinder {
     });
   }
 
-    updateWalkableNodes(updates: NodeUpdate[]): void {
+  updateWalkableNodes(updates: NodeUpdate[]): void {
     for (const update of updates) {
       this.nodes[this.getIndex(update.x, update.y)].walkable = update.walkable;
     }
     updates = null;
   }
 
-    destroy(): void {
+  destroy(): void {
     this.nodes = null;
   }
 
@@ -127,6 +127,7 @@ export class Pathfinder {
     });
     return waypoints;
   }
+
   private retracePath(start: Node, end: Node): Point[] {
     const path: Node[] = [];
     let currentNode = end;
@@ -145,7 +146,7 @@ export class Pathfinder {
   private getPosition(index: number): { x: number, y: number } {
     const x = index % this.w;
     const y = (index - x) / this.w;
-    return { x, y };
+    return {x, y};
   }
 
   private getNeighbors(node: Node): Node[] {

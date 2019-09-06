@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class ClaimDailyRewardResponse implements IncomingPacket {
 
@@ -8,9 +8,10 @@ export class ClaimDailyRewardResponse implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    itemId: number;
-    quantity: number;
-    gold: number;
+  itemId: number;
+  quantity: number;
+  gold: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

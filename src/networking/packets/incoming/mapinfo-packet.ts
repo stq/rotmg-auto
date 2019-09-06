@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class MapInfoPacket implements IncomingPacket {
 
@@ -8,17 +8,18 @@ export class MapInfoPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    width: number;
-    height: number;
-    name: string;
-    displayName: string;
-    difficulty: number;
-    fp: number;
-    background: number;
-    allowPlayerTeleport: boolean;
-    showDisplays: boolean;
-    clientXML: string[];
-    extraXML: string[];
+  width: number;
+  height: number;
+  name: string;
+  displayName: string;
+  difficulty: number;
+  fp: number;
+  background: number;
+  allowPlayerTeleport: boolean;
+  showDisplays: boolean;
+  clientXML: string[];
+  extraXML: string[];
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

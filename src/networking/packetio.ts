@@ -1,12 +1,12 @@
-import { EventEmitter } from 'events';
-import { Socket } from 'net';
-import { PacketBuffer } from './packet-buffer';
-import { Packets } from './packets';
-import { RC4, OUTGOING_KEY, INCOMING_KEY } from '../crypto';
-import { IncomingPacket, OutgoingPacket } from './packet';
-import { Mapper } from './mapper';
-import { PacketType } from './packet-type';
-import { Logger, LogLevel } from '../core';
+import {EventEmitter} from 'events';
+import {Socket} from 'net';
+import {PacketBuffer} from './packet-buffer';
+import {Packets} from './packets';
+import {RC4, OUTGOING_KEY, INCOMING_KEY} from '../crypto';
+import {IncomingPacket, OutgoingPacket} from './packet';
+import {Mapper} from './mapper';
+import {PacketType} from './packet-type';
+import {Logger, LogLevel} from '../core';
 
 export class PacketIO {
 
@@ -18,7 +18,7 @@ export class PacketIO {
   private packetBuffer: PacketBuffer;
   private outgoingBuffer: PacketBuffer;
 
-    constructor(socket: Socket) {
+  constructor(socket: Socket) {
     this.resetBuffer();
     this.outgoingBuffer = new PacketBuffer(2048);
     this.emitter = new EventEmitter();
@@ -30,12 +30,12 @@ export class PacketIO {
     socket.on('close', this.onClose.bind(this));
   }
 
-    on(event: string | symbol, listener: (...args: any[]) => void): this {
+  on(event: string | symbol, listener: (...args: any[]) => void): this {
     this.emitter.on(event, listener);
     return this;
   }
 
-    destroy(): void {
+  destroy(): void {
     if (this.socket) {
       this.socket.removeListener('data', this.processData.bind(this));
       this.socket.removeListener('close', this.onClose.bind(this));
@@ -50,7 +50,7 @@ export class PacketIO {
     });
   }
 
-    sendPacket(packet: OutgoingPacket): void {
+  sendPacket(packet: OutgoingPacket): void {
     if (this.socket.destroyed) {
       return;
     }
@@ -71,7 +71,7 @@ export class PacketIO {
     this.socket.write(this.outgoingBuffer.data.slice(0, packetSize));
   }
 
-    emitPacket(packet: IncomingPacket): void {
+  emitPacket(packet: IncomingPacket): void {
     if (packet) {
       this.emitter.emit('packet', packet);
     }

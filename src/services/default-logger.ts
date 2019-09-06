@@ -1,10 +1,11 @@
 import chalk from 'chalk';
-import { LogProvider, LogLevel } from './logger';
-import { StringUtils } from './string-utils';
+import {LogProvider, LogLevel} from './logger';
+import {StringUtils} from './string-utils';
 
 export class DefaultLogger implements LogProvider {
 
-  constructor(private minLevel: LogLevel = LogLevel.Info) { }
+  constructor(private minLevel: LogLevel = LogLevel.Info) {
+  }
 
   log(sender: string, message: string, level: LogLevel): void {
     if (level < this.minLevel) {

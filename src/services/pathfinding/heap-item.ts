@@ -1,4 +1,5 @@
 export interface HeapItem<T> {
-    heapIndex: number;
-    compareTo(item: T): number;
+  heapIndex: number;
+
+  compareTo(item: T): number;
 }

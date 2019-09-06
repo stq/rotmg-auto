@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class ReskinUnlockPacket implements IncomingPacket {
 
@@ -8,7 +8,8 @@ export class ReskinUnlockPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    skinId: number;
+  skinId: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class AoePacket implements IncomingPacket {
 
@@ -9,13 +9,14 @@ export class AoePacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    pos: WorldPosData;
-    radius: number;
-    damage: number;
-    effect: number;
-    duration: number;
-    origType: number;
-    color: number;
+  pos: WorldPosData;
+  radius: number;
+  damage: number;
+  effect: number;
+  duration: number;
+  origType: number;
+  color: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

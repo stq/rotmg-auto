@@ -1,8 +1,8 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { GroundTileData } from '../../data/ground-tile-data';
-import { ObjectData } from '../../data/object-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {GroundTileData} from '../../data/ground-tile-data';
+import {ObjectData} from '../../data/object-data';
 
 export class UpdatePacket implements IncomingPacket {
 
@@ -10,9 +10,10 @@ export class UpdatePacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    tiles: GroundTileData[];
-    newObjects: ObjectData[];
-    drops: number[];
+  tiles: GroundTileData[];
+  newObjects: ObjectData[];
+  drops: number[];
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

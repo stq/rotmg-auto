@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class ShowEffectPacket implements IncomingPacket {
 
@@ -9,12 +9,13 @@ export class ShowEffectPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    effectType: number;
-    targetObjectId: number;
-    pos1: WorldPosData;
-    pos2: WorldPosData;
-    color: number;
-    duration: number;
+  effectType: number;
+  targetObjectId: number;
+  pos1: WorldPosData;
+  pos2: WorldPosData;
+  color: number;
+  duration: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

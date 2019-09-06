@@ -1,7 +1,7 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
-import { FailureCode } from '../../../models/failure-code';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
+import {FailureCode} from '../../../models/failure-code';
 
 export class FailurePacket implements IncomingPacket {
 
@@ -9,8 +9,9 @@ export class FailurePacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    errorId: FailureCode;
-    errorDescription: string;
+  errorId: FailureCode;
+  errorDescription: string;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

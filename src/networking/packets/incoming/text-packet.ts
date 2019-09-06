@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class TextPacket implements IncomingPacket {
 
@@ -8,13 +8,14 @@ export class TextPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    name: string;
-    objectId: number;
-    numStars: number;
-    bubbleTime: number;
-    recipient: string;
-    text: string;
-    cleanText: string;
+  name: string;
+  objectId: number;
+  numStars: number;
+  bubbleTime: number;
+  recipient: string;
+  text: string;
+  cleanText: string;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

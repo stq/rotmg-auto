@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class PingPacket implements IncomingPacket {
 
@@ -8,7 +8,8 @@ export class PingPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    serial: number;
+  serial: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

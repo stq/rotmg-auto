@@ -1,20 +1,20 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
-import { WorldPosData } from './world-pos-data';
-import { StatData } from './stat-data';
-import { StatType } from '../../models/stat-type';
-import { PlayerData } from '../../models';
-import { ObjectData } from './object-data';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
+import {WorldPosData} from './world-pos-data';
+import {StatData} from './stat-data';
+import {StatType} from '../../models/stat-type';
+import {PlayerData} from '../../models';
+import {ObjectData} from './object-data';
 
 export class ObjectStatusData implements DataPacket {
 
-    static processObject(data: ObjectData): PlayerData {
+  static processObject(data: ObjectData): PlayerData {
     const playerData = this.processObjectStatus(data.status);
     playerData.class = data.objectType;
     return playerData;
   }
 
-    static processObjectStatus(data: ObjectStatusData, currentData?: PlayerData): PlayerData {
+  static processObjectStatus(data: ObjectStatusData, currentData?: PlayerData): PlayerData {
     const playerData = this.processStatData(data.stats, currentData);
     playerData.worldPos = data.pos;
     playerData.objectId = data.objectId;
@@ -22,7 +22,7 @@ export class ObjectStatusData implements DataPacket {
     return playerData;
   }
 
-    static processStatData(stats: StatData[], currentData?: PlayerData): PlayerData {
+  static processStatData(stats: StatData[], currentData?: PlayerData): PlayerData {
     const playerData = currentData || {} as PlayerData;
     if (!playerData.inventory) {
       playerData.inventory = [];
@@ -139,9 +139,9 @@ export class ObjectStatusData implements DataPacket {
     return playerData;
   }
 
-    objectId: number;
-    pos: WorldPosData;
-    stats: StatData[];
+  objectId: number;
+  pos: WorldPosData;
+  stats: StatData[];
 
   read(packet: PacketBuffer): void {
     this.objectId = packet.readInt32();

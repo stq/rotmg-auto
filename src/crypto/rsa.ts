@@ -9,7 +9,7 @@ const PUBLIC_KEY =
   '-----END PUBLIC KEY-----';
 
 export class RSA {
-    static encrypt(msg: string): string {
+  static encrypt(msg: string): string {
     if (!msg || msg.trim() === '') {
       return '';
     }

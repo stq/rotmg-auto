@@ -1,11 +1,11 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
 
 export class SlotObjectData implements DataPacket {
 
-    objectId: number;
-    slotId: number;
-    objectType: number;
+  objectId: number;
+  slotId: number;
+  objectType: number;
 
   read(packet: PacketBuffer): void {
     this.objectId = packet.readInt32();

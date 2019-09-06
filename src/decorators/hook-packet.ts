@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { LibraryManager } from './../core/library-manager';
-import { Logger, LogLevel } from '../services';
-import { VALID_PACKET_HOOKS } from './valid-packets';
+import {LibraryManager} from './../core/library-manager';
+import {Logger, LogLevel} from '../services';
+import {VALID_PACKET_HOOKS} from './valid-packets';
 
 export function PacketHook(): MethodDecorator {
   return (target, key) => {

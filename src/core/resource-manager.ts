@@ -1,5 +1,5 @@
-import { Logger, LogLevel, Storage } from './../services';
-import { GameObject, ProjectileInfo, Tile, environment } from './../models';
+import {Logger, LogLevel, Storage} from './../services';
+import {GameObject, ProjectileInfo, Tile, environment} from './../models';
 
 export class ResourceManager {
 
@@ -9,14 +9,14 @@ export class ResourceManager {
   static enemies: { [id: number]: GameObject };
   static pets: { [id: number]: GameObject };
 
-    static loadAllResources(): Promise<void> {
+  static loadAllResources(): Promise<void> {
     return Promise.all([
       this.loadTileInfo(),
       this.loadObjects()
     ]).then(() => null);
   }
 
-    static loadTileInfo(): Promise<void> {
+  static loadTileInfo(): Promise<void> {
     return new Promise((resolve: () => void, reject: (error: Error) => void) => {
       this.tiles = {};
       Storage.get('resources', 'GroundTypes.json').then((data) => {
@@ -31,8 +31,10 @@ export class ResourceManager {
               noWalk: (tile.NoWalk ? true : false)
             };
           } catch {
-            Logger.log('ResourceManager', `Failed to load tile: ${tile.type}`, LogLevel.Debug);
-          }
+            Logger
+        .
+          log('ResourceManager', `Failed to load tile: ${tile.type}`, LogLevel.Debug);
+        }
         }
         Logger.log('ResourceManager', `Loaded ${tileArray.length} tiles.`, LogLevel.Info);
         tileArray = null;
@@ -45,7 +47,7 @@ export class ResourceManager {
     });
   }
 
-    static loadObjects(): Promise<any> {
+  static loadObjects(): Promise<any> {
     return new Promise((resolve: () => void, reject: (error: Error) => void) => {
       this.objects = {};
       this.items = {};
@@ -172,8 +174,10 @@ export class ResourceManager {
               petCount++;
             }
           } catch {
-            Logger.log('ResourceManager', `Failed to load object: ${current.type}`, LogLevel.Debug);
-          }
+            Logger
+        .
+          log('ResourceManager', `Failed to load object: ${current.type}`, LogLevel.Debug);
+        }
         }
         Logger.log('ResourceManager', `Loaded ${objectsArray.length} objects.`, LogLevel.Info);
         Logger.log('ResourceManager', `Loaded ${itemCount} items.`, LogLevel.Debug);

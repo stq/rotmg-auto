@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class DamagePacket implements IncomingPacket {
 
@@ -8,13 +8,14 @@ export class DamagePacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    targetId: number;
-    effects: number[];
-    damageAmount: number;
-    kill: boolean;
-    armorPierce: boolean;
-    bulletId: number;
-    objectId: number;
+  targetId: number;
+  effects: number[];
+  damageAmount: number;
+  kill: boolean;
+  armorPierce: boolean;
+  bulletId: number;
+  objectId: number;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

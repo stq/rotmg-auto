@@ -7,13 +7,15 @@ export interface LogProvider {
 export class Logger {
   static loggers: LogProvider[] = [];
 
-    static addLogger(logger: LogProvider): void {
+  static addLogger(logger: LogProvider): void {
     this.loggers.push(logger);
   }
-    static resetLoggers(): void {
+
+  static resetLoggers(): void {
     this.loggers = [];
   }
-    static log(sender: string, message: string, level: LogLevel = LogLevel.Message): void {
+
+  static log(sender: string, message: string, level: LogLevel = LogLevel.Message): void {
     for (const logger of this.loggers) {
       try {
         logger.log(sender, message, level);
@@ -27,10 +29,10 @@ export class Logger {
 }
 
 export enum LogLevel {
-    Debug,
-    Info,
-    Message,
-    Warning,
-    Error,
-    Success,
+  Debug,
+  Info,
+  Message,
+  Warning,
+  Error,
+  Success,
 }

@@ -1,19 +1,19 @@
-import { GameObject } from './object';
-import { ObjectStatusData } from '../networking/data/object-status-data';
-import { PlayerData } from './playerdata';
-import { Point } from '../services/pathfinding/point';
-import { WorldPosData } from '../networking/data/world-pos-data';
+import {GameObject} from './object';
+import {ObjectStatusData} from '../networking/data/object-status-data';
+import {PlayerData} from './playerdata';
+import {Point} from '../services/pathfinding/point';
+import {WorldPosData} from '../networking/data/world-pos-data';
 
 export class Enemy {
-    objectData: PlayerData;
-    properties: GameObject;
-    dead: boolean;
-    lastUpdate: number;
-    tickPos: Point;
-    posAtTick: Point;
-    moveVector: Point;
-    lastTickId: number;
-    currentPos: Point;
+  objectData: PlayerData;
+  properties: GameObject;
+  dead: boolean;
+  lastUpdate: number;
+  tickPos: Point;
+  posAtTick: Point;
+  moveVector: Point;
+  lastTickId: number;
+  currentPos: Point;
 
   constructor(properties: GameObject, status: ObjectStatusData) {
     this.properties = properties;

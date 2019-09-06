@@ -1,6 +1,6 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { IncomingPacket } from '../../packet';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {IncomingPacket} from '../../packet';
 
 export class InvitedToGuildPacket implements IncomingPacket {
 
@@ -8,8 +8,9 @@ export class InvitedToGuildPacket implements IncomingPacket {
   propagate = true;
 
   //#region packet-specific members
-    name: string;
-    guildName: string;
+  name: string;
+  guildName: string;
+
   //#endregion
 
   read(buffer: PacketBuffer): void {

@@ -1,12 +1,12 @@
 import * as url from 'url';
 import * as qs from 'querystring';
 import * as zlib from 'zlib';
-import { Proxy } from '../../models';
-import { Http } from './http';
-import { Https } from './https';
-import { SocksClient } from 'socks';
-import { Logger, LogLevel } from '../logger';
-import { IncomingMessage } from 'http';
+import {Proxy} from '../../models';
+import {Http} from './http';
+import {Https} from './https';
+import {SocksClient} from 'socks';
+import {Logger, LogLevel} from '../logger';
+import {IncomingMessage} from 'http';
 
 export const REQUEST_HEADERS = {
   'Cache-Control': 'max-age=0',
@@ -17,7 +17,7 @@ export const REQUEST_HEADERS = {
 };
 
 export class HttpClient {
-    static get(path: string, options: RequestOptions = { query: {}, proxy: null }): Promise<string> {
+  static get(path: string, options: RequestOptions = {query: {}, proxy: null}): Promise<string> {
     const endpoint = url.parse(path);
     if (!/https?:/.test(endpoint.protocol)) {
       return Promise.reject(new Error(`Unsupported protocol: "${endpoint.protocol}"`));
@@ -37,7 +37,7 @@ export class HttpClient {
     }
   }
 
-    static unzip(zipped: IncomingMessage): Promise<string> {
+  static unzip(zipped: IncomingMessage): Promise<string> {
     return new Promise((resolve, reject) => {
       const unzip = zlib.createGunzip();
       zipped.pipe(unzip);
@@ -59,7 +59,7 @@ export class HttpClient {
     });
   }
 
-    static post(path: string, params?: { [id: string]: any }): Promise<string> {
+  static post(path: string, params?: { [id: string]: any }): Promise<string> {
     const endpoint = url.parse(path);
     if (!/https?:/.test(endpoint.protocol)) {
       return Promise.reject(new Error(`Unsupported protocol: "${endpoint.protocol}"`));
@@ -70,6 +70,7 @@ export class HttpClient {
       return Https.post(endpoint, params);
     }
   }
+
   private static getWithProxy(endpoint: url.Url, proxy: Proxy, query: string): Promise<any> {
     return new Promise((resolve: (data: string) => void, reject: (err: Error) => void) => {
       Logger.log('HttpClient', 'Establishing proxy for GET request.', LogLevel.Info);

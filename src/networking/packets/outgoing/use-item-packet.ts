@@ -1,18 +1,19 @@
-import { PacketBuffer } from '../../packet-buffer';
-import { PacketType } from '../../packet-type';
-import { OutgoingPacket } from '../../packet';
-import { SlotObjectData } from '../../data/slot-object-data';
-import { WorldPosData } from '../../data/world-pos-data';
+import {PacketBuffer} from '../../packet-buffer';
+import {PacketType} from '../../packet-type';
+import {OutgoingPacket} from '../../packet';
+import {SlotObjectData} from '../../data/slot-object-data';
+import {WorldPosData} from '../../data/world-pos-data';
 
 export class UseItemPacket implements OutgoingPacket {
 
   type = PacketType.USEITEM;
 
   //#region packet-specific members
-    time: number;
-    slotObject: SlotObjectData;
-    itemUsePos: WorldPosData;
-    useType: number;
+  time: number;
+  slotObject: SlotObjectData;
+  itemUsePos: WorldPosData;
+  useType: number;
+
   //#endregion
 
   write(buffer: PacketBuffer): void {

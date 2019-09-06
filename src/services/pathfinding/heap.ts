@@ -1,4 +1,4 @@
-import { HeapItem } from './heap-item';
+import {HeapItem} from './heap-item';
 
 export class Heap<T extends HeapItem<T>> {
 
@@ -12,18 +12,18 @@ export class Heap<T extends HeapItem<T>> {
     this.items = new Array<T>(this.maxHeapSize);
   }
 
-    get count(): number {
+  get count(): number {
     return this.heapSize;
   }
 
-    add(item: T): void {
+  add(item: T): void {
     item.heapIndex = this.heapSize;
     this.items[this.heapSize] = item;
     this.sortUp(item);
     this.heapSize++;
   }
 
-    removeFirst(): T {
+  removeFirst(): T {
     const first = this.items[0];
     this.heapSize--;
     this.items[0] = this.items[this.heapSize];
@@ -32,11 +32,11 @@ export class Heap<T extends HeapItem<T>> {
     return first;
   }
 
-    update(item: T): void {
+  update(item: T): void {
     this.sortUp(item);
   }
 
-    contains(item: T): boolean {
+  contains(item: T): boolean {
     if (!this.items[item.heapIndex]) {
       return false;
     }

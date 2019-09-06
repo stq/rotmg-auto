@@ -1,11 +1,11 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
 
 export class MoveRecord implements DataPacket {
 
-    time: number;
-    x: number;
-    y: number;
+  time: number;
+  x: number;
+  y: number;
 
   read(packet: PacketBuffer): void {
     this.time = packet.readInt32();

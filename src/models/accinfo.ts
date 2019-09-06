@@ -1,9 +1,11 @@
-import { Proxy } from './proxy';
+import {Proxy} from './proxy';
+
 export interface AccountInfo {
   buildVersion: string;
   localServer?: LocalServerSettings;
   accounts: Account[];
 }
+
 export interface Account {
   alias: string;
   guid: string;

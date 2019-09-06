@@ -1,15 +1,16 @@
-import { HeapItem } from './heap-item';
-import { Hashable } from './hashable';
+import {HeapItem} from './heap-item';
+import {Hashable} from './hashable';
 
 export class Node implements HeapItem<Node>, Hashable {
-    parent: Node = null;
-    gCost = 0;
-    hCost = 0;
-    x = 0;
-    y = 0;
-    walkable = true;
+  parent: Node = null;
+  gCost = 0;
+  hCost = 0;
+  x = 0;
+  y = 0;
+  walkable = true;
   heapIndex = -1;
-    get fCost(): number {
+
+  get fCost(): number {
     return this.gCost + this.hCost;
   }
 

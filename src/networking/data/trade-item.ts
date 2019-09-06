@@ -1,12 +1,12 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
 
 export class TradeItem implements DataPacket {
 
-    item: number;
-    slotType: number;
-    tradeable: boolean;
-    included: boolean;
+  item: number;
+  slotType: number;
+  tradeable: boolean;
+  included: boolean;
 
   read(packet: PacketBuffer): void {
     this.item = packet.readInt32();

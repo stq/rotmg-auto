@@ -1,11 +1,11 @@
-import { PacketBuffer } from '../packet-buffer';
-import { DataPacket } from '../packet';
-import { Point } from '../../services';
+import {PacketBuffer} from '../packet-buffer';
+import {DataPacket} from '../packet';
+import {Point} from '../../services';
 
 export class WorldPosData implements DataPacket {
 
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 
   constructor(x?: number, y?: number) {
     this.x = x || null;
@@ -22,27 +22,27 @@ export class WorldPosData implements DataPacket {
     packet.writeFloat(this.y);
   }
 
-    squareDistanceTo(location: WorldPosData | Point): number {
+  squareDistanceTo(location: WorldPosData | Point): number {
     const a = location.x - this.x;
     const b = location.y - this.y;
     return a ** 2 + b ** 2;
   }
 
-    clone(): WorldPosData {
+  clone(): WorldPosData {
     const clone = new WorldPosData();
     clone.x = this.x;
     clone.y = this.y;
     return clone;
   }
 
-    toPrecisePoint(): Point {
+  toPrecisePoint(): Point {
     return {
       x: this.x,
       y: this.y
     };
   }
 
-    toPoint(): Point {
+  toPoint(): Point {
     return {
       x: Math.floor(this.x),
       y: Math.floor(this.y)
